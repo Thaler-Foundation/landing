@@ -1,0 +1,765 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@font-face {
+  font-family: 'Nexa';
+  src: url('/fonts/NexaBold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Nexa';
+  src: url('/fonts/NexaLight.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Static design tokens */
+@theme {
+  /* Shared app content width. Single source of truth for the dashboard
+     navbar, footer, and every protected page container so they all align.
+     Enables `max-w-app` (Tailwind v4 reads the --container-* namespace). */
+  --container-app: 1400px;
+
+  /* Altitude palette */
+  --color-altitude-bg: #faf9f7;
+  --color-altitude-black: #0a0a0b;
+  --color-altitude-gray-50: #f9f9f9;
+  --color-altitude-gray-100: #f6f6f6;
+  --color-altitude-gray-200: #f0f0f0;
+  --color-altitude-gray-300: #ebebeb;
+  --color-altitude-gray-400: #e8e8e8;
+  --color-altitude-gray-500: #c9c9c9;
+  --color-altitude-gray-600: #b4b4b4;
+  --color-altitude-gray-700: #999999;
+  --color-altitude-gray-800: #333333;
+  --color-altitude-gray-900: #111111;
+  --color-altitude-blue: #0099ff;
+
+  /* Primary */
+  --color-primary: #0066ff;
+  --color-primary-50: #e6f0ff;
+  --color-primary-100: #cce1ff;
+  --color-primary-200: #99c3ff;
+  --color-primary-300: #66a5ff;
+  --color-primary-400: #3387ff;
+  --color-primary-500: #0066ff;
+  --color-primary-600: #0052cc;
+  --color-primary-700: #003d99;
+  --color-primary-800: #002966;
+  --color-primary-900: #001433;
+  --color-primary-foreground: #ffffff;
+
+  /* Secondary */
+  --color-secondary: #00d9c0;
+  --color-secondary-50: #e6fbf8;
+  --color-secondary-100: #ccf7f1;
+  --color-secondary-200: #99efe3;
+  --color-secondary-300: #66e7d5;
+  --color-secondary-400: #33dfc7;
+  --color-secondary-500: #00d9c0;
+  --color-secondary-600: #00ae9a;
+  --color-secondary-700: #008273;
+  --color-secondary-800: #00574d;
+  --color-secondary-900: #002b26;
+  --color-secondary-foreground: #000000;
+
+  /* Accent */
+  --color-accent: #8b5cf6;
+  --color-accent-50: #f5f3ff;
+  --color-accent-100: #ede9fe;
+  --color-accent-200: #ddd6fe;
+  --color-accent-300: #c4b5fd;
+  --color-accent-400: #a78bfa;
+  --color-accent-500: #8b5cf6;
+  --color-accent-600: #7c3aed;
+  --color-accent-700: #6d28d9;
+  --color-accent-800: #5b21b6;
+  --color-accent-900: #4c1d95;
+  --color-accent-foreground: #ffffff;
+
+  /* Success */
+  --color-success: #10b981;
+  --color-success-50: #ecfdf5;
+  --color-success-100: #d1fae5;
+  --color-success-200: #a7f3d0;
+  --color-success-300: #6ee7b7;
+  --color-success-400: #34d399;
+  --color-success-500: #10b981;
+  --color-success-600: #059669;
+  --color-success-700: #047857;
+  --color-success-800: #065f46;
+  --color-success-900: #064e3b;
+
+  /* Warning */
+  --color-warning: #f59e0b;
+  --color-warning-50: #fffbeb;
+  --color-warning-100: #fef3c7;
+  --color-warning-200: #fde68a;
+  --color-warning-300: #fcd34d;
+  --color-warning-400: #fbbf24;
+  --color-warning-500: #f59e0b;
+  --color-warning-600: #d97706;
+  --color-warning-700: #b45309;
+  --color-warning-800: #92400e;
+  --color-warning-900: #78350f;
+
+  /* Error */
+  --color-error: #ef4444;
+  --color-error-50: #fef2f2;
+  --color-error-100: #fee2e2;
+  --color-error-200: #fecaca;
+  --color-error-300: #fca5a5;
+  --color-error-400: #f87171;
+  --color-error-500: #ef4444;
+  --color-error-600: #dc2626;
+  --color-error-700: #b91c1c;
+  --color-error-800: #991b1b;
+  --color-error-900: #7f1d1d;
+
+  /* Keyframes */
+  @keyframes accordion-down {
+    from {
+      height: 0;
+    }
+    to {
+      height: var(--radix-accordion-content-height);
+    }
+  }
+  @keyframes accordion-up {
+    from {
+      height: var(--radix-accordion-content-height);
+    }
+    to {
+      height: 0;
+    }
+  }
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @keyframes slide-in-from-top {
+    from {
+      transform: translateY(-100%);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
+  @keyframes slide-in-from-bottom {
+    from {
+      transform: translateY(100%);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
+  @keyframes pulse-glow {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+  }
+  @keyframes rotateY {
+    0% {
+      transform: rotateY(0deg);
+    }
+    100% {
+      transform: rotateY(360deg);
+    }
+  }
+  /* Font sizes */
+  --text-base: 14px;
+
+  /* Animations */
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+  --animate-fade-in: fade-in 0.3s ease-in-out;
+  --animate-slide-in-top: slide-in-from-top 0.3s ease-out;
+  --animate-slide-in-bottom: slide-in-from-bottom 0.3s ease-out;
+  --animate-pulse-glow: pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  --animate-logo-spin: rotateY 1.5s linear infinite;
+}
+
+/*
+  Semantic tokens that reference runtime CSS vars — must use @theme inline
+  so utilities resolve directly to var(...) instead of going through an
+  intermediate --color-* custom property that Tailwind would try to evaluate
+  statically.
+*/
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+
+  /* Legacy `solana-green` accent (nav/footer hover states). Follows the theme
+     foreground so it stays monochrome in both light and dark — no fixed hue. */
+  --color-solana-green: var(--foreground);
+
+  /* Radius — references --radius runtime var */
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+
+  /* Fonts — references Next.js font vars set at runtime */
+  --font-sans: 'Nexa', var(--font-geist), system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), monospace;
+}
+
+/* Class-based dark mode */
+@variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  :root {
+    /* Warm Altitude canvas (matches the hero's bg-altitude-bg) so the page
+       temperature stays consistent from hero through every section. Cards
+       stay pure white so they lift off the warm surface. */
+    --background: #faf9f7;
+    --foreground: #0a0a0b;
+    --card: #ffffff;
+    --card-foreground: #0a0a0b;
+    --popover: #ffffff;
+    --popover-foreground: #0a0a0b;
+    --primary: oklch(0.205 0 0);
+    --primary-foreground: oklch(0.985 0 0);
+    --secondary: oklch(0.97 0 0);
+    --secondary-foreground: oklch(0.205 0 0);
+    --muted: oklch(0.97 0 0);
+    --muted-foreground: oklch(0.556 0 0);
+    --accent: oklch(0.97 0 0);
+    --accent-foreground: oklch(0.205 0 0);
+    --destructive: oklch(0.577 0.245 27.325);
+    --destructive-foreground: oklch(0.985 0 0);
+    --border: oklch(0.922 0 0);
+    --input: oklch(0.922 0 0);
+    /* Brand-blue focus ring — visible and on-brand (was neutral gray) */
+    --ring: #0066ff;
+    --radius: 0.625rem;
+    --chart-1: oklch(0.87 0 0);
+    --chart-2: oklch(0.556 0 0);
+    --chart-3: oklch(0.439 0 0);
+    --chart-4: oklch(0.371 0 0);
+    --chart-5: oklch(0.269 0 0);
+    --sidebar: oklch(0.985 0 0);
+    --sidebar-foreground: oklch(0.145 0 0);
+    --sidebar-primary: oklch(0.205 0 0);
+    --sidebar-primary-foreground: oklch(0.985 0 0);
+    --sidebar-accent: oklch(0.97 0 0);
+    --sidebar-accent-foreground: oklch(0.205 0 0);
+    --sidebar-border: oklch(0.922 0 0);
+    --sidebar-ring: oklch(0.708 0 0);
+
+    /* Status colors — defaults match current Tailwind green-500 / red-500 / warning */
+    --thaler-positive: #10b981;
+    --thaler-negative: #ef4444;
+    --thaler-warning: #f59e0b;
+  }
+
+  .dark {
+    /* True Altitude black canvas — matches the hero and SectionBackdrop panels
+       (#0a0a0b) so the page and its branded surfaces are one seamless black.
+       Cards/popovers lift one step so they separate from the canvas. */
+    --background: #0a0a0b;
+    --foreground: oklch(0.985 0 0);
+    --card: #141416;
+    --card-foreground: oklch(0.985 0 0);
+    --popover: #141416;
+    --popover-foreground: oklch(0.985 0 0);
+    --primary: oklch(0.922 0 0);
+    --primary-foreground: oklch(0.205 0 0);
+    --secondary: oklch(0.269 0 0);
+    --secondary-foreground: oklch(0.985 0 0);
+    --muted: oklch(0.269 0 0);
+    --muted-foreground: oklch(0.708 0 0);
+    --accent: oklch(0.269 0 0);
+    --accent-foreground: oklch(0.985 0 0);
+    --destructive: oklch(0.704 0.191 22.216);
+    --border: oklch(1 0 0 / 10%);
+    --input: oklch(1 0 0 / 15%);
+    /* Brighter primary blue reads against true black for focus states */
+    --ring: #3387ff;
+    --chart-1: oklch(0.87 0 0);
+    --chart-2: oklch(0.556 0 0);
+    --chart-3: oklch(0.439 0 0);
+    --chart-4: oklch(0.371 0 0);
+    --chart-5: oklch(0.269 0 0);
+    --sidebar: oklch(0.205 0 0);
+    --sidebar-foreground: oklch(0.985 0 0);
+    --sidebar-primary: oklch(0.488 0.243 264.376);
+    --sidebar-primary-foreground: oklch(0.985 0 0);
+    --sidebar-accent: oklch(0.269 0 0);
+    --sidebar-accent-foreground: oklch(0.985 0 0);
+    --sidebar-border: oklch(1 0 0 / 10%);
+    --sidebar-ring: oklch(0.556 0 0);
+
+    --thaler-positive: #10b981;
+    --thaler-negative: #ef4444;
+    --thaler-warning: #f59e0b;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-weight: 300;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: 700;
+  }
+
+  html {
+    @apply font-sans;
+    font-size: 14px;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-semibold tracking-tight;
+  }
+
+  p {
+    @apply leading-relaxed;
+  }
+}
+
+@utility font-display {
+  font-family: 'Nexa', var(--font-geist), system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 32px;
+  letter-spacing: -0.03em;
+}
+
+@layer utilities {
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  .scrollbar-thin::-webkit-scrollbar-track {
+    @apply bg-altitude-gray-200;
+  }
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    @apply bg-altitude-gray-500 rounded-full hover:bg-altitude-gray-600;
+  }
+  .logo-spin {
+    animation: rotateY 1.5s linear infinite;
+    transform-style: preserve-3d;
+  }
+  @keyframes gradientFlow {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+  .animate-gradient {
+    animation: gradientFlow 6s ease infinite;
+  }
+
+  /* Status color utilities (replace text-green-500 / text-red-500 / bg-warning sites) */
+  .text-thaler-positive {
+    color: var(--thaler-positive);
+  }
+  .text-thaler-negative {
+    color: var(--thaler-negative);
+  }
+  .text-thaler-warning {
+    color: var(--thaler-warning);
+  }
+  .bg-thaler-positive {
+    background-color: var(--thaler-positive);
+  }
+  .bg-thaler-negative {
+    background-color: var(--thaler-negative);
+  }
+  .bg-thaler-warning {
+    background-color: var(--thaler-warning);
+  }
+
+  /* Density utilities — keyed on root data-density attribute set by PreferencesProvider */
+  [data-density='compact'] .density-py-3 {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+  [data-density='comfortable'] .density-py-3 {
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+  }
+  [data-density='compact'] .density-px-5 {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+  [data-density='comfortable'] .density-px-5 {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+
+  /* Hide-balances blur — keyed on root data-hide-balances attribute. Scopes
+     to .font-mono.tabular-nums (always paired on monetary/token displays)
+     plus an opt-in .balance-blur class for headline numbers that use only
+     .tabular-nums. Deliberately NOT keyed on .tabular-nums alone so dates,
+     vault IDs, latency strings, etc. don't blur. */
+  [data-hide-balances='true'] .font-mono.tabular-nums,
+  [data-hide-balances='true'] .balance-blur {
+    filter: blur(6px);
+    transition: filter 0.15s ease;
+  }
+  [data-hide-balances='true'] .font-mono.tabular-nums:hover,
+  [data-hide-balances='true'] .balance-blur:hover {
+    filter: none;
+  }
+}
+
+.btn-primary {
+  @apply bg-altitude-black text-white px-6 py-3 rounded-lg font-medium transition-all duration-200 hover:bg-altitude-gray-900 active:scale-[0.98];
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.btn-secondary {
+  @apply bg-white text-altitude-black px-6 py-3 rounded-lg font-medium border border-altitude-gray-400 transition-all duration-200 hover:bg-altitude-gray-50 active:scale-[0.98];
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.btn-ghost {
+  @apply text-altitude-gray-800 px-6 py-3 rounded-lg font-medium transition-all duration-200 hover:bg-altitude-gray-100 active:scale-[0.98];
+}
+
+.card-altitude {
+  @apply bg-white rounded-xl border border-altitude-gray-400 p-6;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.08);
+}
+
+.card-altitude-hover {
+  @apply bg-white rounded-xl border border-altitude-gray-400 p-6 transition-all duration-200 hover:shadow-lg hover:border-altitude-gray-500;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.08);
+}
+
+.input-altitude {
+  @apply bg-white border border-altitude-gray-400 rounded-lg px-4 py-2.5 text-altitude-black placeholder-altitude-gray-600 transition-all duration-200;
+  @apply focus:outline-none focus:border-altitude-black focus:ring-2 focus:ring-altitude-black/10;
+}
+
+.input-altitude:disabled {
+  @apply bg-altitude-gray-100 text-altitude-gray-600 cursor-not-allowed;
+}
+
+.shadow-altitude-sm {
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.shadow-altitude-md {
+  box-shadow:
+    0 1px 3px 0 rgba(0, 0, 0, 0.08),
+    0 1px 2px 0 rgba(0, 0, 0, 0.04);
+}
+
+.shadow-altitude-lg {
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.08),
+    0 2px 4px -1px rgba(0, 0, 0, 0.04);
+}
+
+.shadow-altitude-xl {
+  box-shadow:
+    0 10px 15px -3px rgba(0, 0, 0, 0.08),
+    0 4px 6px -2px rgba(0, 0, 0, 0.04);
+}
+
+.mono-numbers {
+  @apply font-mono tabular-nums;
+}
+
+.transition-smooth {
+  @apply transition-all duration-200 ease-out;
+}
+
+.video-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.backdrop-blur-strong {
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.glass-effect {
+  @apply backdrop-blur-md bg-white/10 border border-white/20;
+}
+
+.glass-effect-dark {
+  @apply backdrop-blur-md bg-gray-900/30 border border-white/10;
+}
+
+/* Anchor-nav offset so the fixed header never covers a section heading */
+section[id],
+footer[id] {
+  scroll-margin-top: 84px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Landing scroll-reveal system
+   Elements tagged with data-reveal start blurred + offset and animate into
+   place when ScrollReveal adds .is-revealed. Colorless by design so it reads
+   identically in light and dark. Hero/header use one-shot entrance variants.
+--------------------------------------------------------------------------- */
+[data-reveal] {
+  --reveal-x: 0px;
+  --reveal-y: 28px;
+  --reveal-scale: 1;
+  --reveal-delay: 0ms;
+  opacity: 0;
+  filter: blur(8px);
+  transform: translate3d(var(--reveal-x), var(--reveal-y), 0) scale(var(--reveal-scale));
+  transition:
+    opacity 0.72s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.72s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.72s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--reveal-delay);
+  will-change: opacity, filter, transform;
+}
+
+[data-reveal='fade'] {
+  --reveal-y: 0px;
+}
+[data-reveal='lift'] {
+  --reveal-y: 42px;
+}
+[data-reveal='left'] {
+  --reveal-x: -32px;
+  --reveal-y: 0px;
+}
+[data-reveal='right'] {
+  --reveal-x: 32px;
+  --reveal-y: 0px;
+}
+[data-reveal='scale'] {
+  --reveal-y: 18px;
+  --reveal-scale: 0.96;
+}
+
+[data-reveal].is-revealed {
+  opacity: 1;
+  filter: blur(0);
+  transform: translate3d(0, 0, 0) scale(1);
+}
+
+[data-reveal-delay='1'] {
+  --reveal-delay: 80ms;
+}
+[data-reveal-delay='2'] {
+  --reveal-delay: 160ms;
+}
+[data-reveal-delay='3'] {
+  --reveal-delay: 240ms;
+}
+[data-reveal-delay='4'] {
+  --reveal-delay: 320ms;
+}
+[data-reveal-delay='5'] {
+  --reveal-delay: 400ms;
+}
+
+/* Dashboard mount entrance: a subtle one-shot fade/lift matched to the landing
+   reveal feel, but self-contained so it needs no IntersectionObserver. */
+.reveal-on-mount {
+  animation: revealOnMount 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.reveal-on-mount[data-delay='1'] {
+  animation-delay: 70ms;
+}
+.reveal-on-mount[data-delay='2'] {
+  animation-delay: 140ms;
+}
+.reveal-on-mount[data-delay='3'] {
+  animation-delay: 210ms;
+}
+.reveal-on-mount[data-delay='4'] {
+  animation-delay: 280ms;
+}
+
+@keyframes revealOnMount {
+  from {
+    opacity: 0;
+    filter: blur(6px);
+    transform: translate3d(0, 14px, 0);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-on-mount {
+    animation: none;
+  }
+}
+
+[data-hero-reveal] {
+  --hero-reveal-x: 0px;
+  --hero-reveal-y: 28px;
+  --hero-reveal-scale: 1;
+  --hero-reveal-delay: 120ms;
+  animation: heroReveal 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: var(--hero-reveal-delay);
+  filter: blur(10px);
+  opacity: 0;
+  transform: translate3d(var(--hero-reveal-x), var(--hero-reveal-y), 0)
+    scale(var(--hero-reveal-scale));
+  will-change: opacity, filter, transform;
+}
+
+[data-hero-reveal='left'] {
+  --hero-reveal-x: -26px;
+  --hero-reveal-y: 0px;
+}
+[data-hero-reveal='right'] {
+  --hero-reveal-x: 26px;
+  --hero-reveal-y: 0px;
+}
+[data-hero-reveal='scale'] {
+  --hero-reveal-y: 22px;
+  --hero-reveal-scale: 0.975;
+}
+[data-hero-reveal-delay='1'] {
+  --hero-reveal-delay: 220ms;
+}
+[data-hero-reveal-delay='2'] {
+  --hero-reveal-delay: 340ms;
+}
+[data-hero-reveal-delay='3'] {
+  --hero-reveal-delay: 420ms;
+}
+[data-hero-reveal-delay='4'] {
+  --hero-reveal-delay: 520ms;
+}
+
+[data-header-reveal] {
+  animation: headerReveal 0.72s cubic-bezier(0.22, 1, 0.36, 1) 80ms both;
+  filter: blur(8px);
+  opacity: 0;
+  transform: translate3d(0, -16px, 0);
+  will-change: opacity, filter, transform;
+}
+
+@keyframes headerReveal {
+  to {
+    filter: blur(0);
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes heroReveal {
+  to {
+    filter: blur(0);
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+/* Docs/developer card mascot eyes — wander on card hover */
+.mascot-eye {
+  transform-box: fill-box;
+  transform-origin: center;
+  will-change: transform;
+}
+.group:hover .mascot-eye {
+  animation: mascotEyeLook 1.35s cubic-bezier(0.45, 0, 0.2, 1) infinite;
+}
+.group:hover .mascot-eye-alt {
+  animation: mascotEyeLookAlt 1.35s cubic-bezier(0.45, 0, 0.2, 1) infinite;
+}
+
+@keyframes mascotEyeLook {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  35% {
+    transform: translate3d(-7px, -2px, 0);
+  }
+  70% {
+    transform: translate3d(6px, 1px, 0);
+  }
+}
+@keyframes mascotEyeLookAlt {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  35% {
+    transform: translate3d(6px, -1px, 0);
+  }
+  75% {
+    transform: translate3d(-7px, 2px, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    opacity: 1;
+    filter: none;
+    transform: none;
+    transition: none;
+  }
+  [data-hero-reveal],
+  [data-header-reveal] {
+    animation: none;
+    filter: none;
+    opacity: 1;
+    transform: none;
+  }
+  .group:hover .mascot-eye,
+  .group:hover .mascot-eye-alt {
+    animation: none;
+  }
+}
