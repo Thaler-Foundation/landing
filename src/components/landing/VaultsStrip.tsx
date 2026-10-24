@@ -1,12 +1,9 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import { cellRect, sampleDither } from '@/lib/dither';
 
-const BAYER = [0, 8, 2, 10, 12, 4, 14, 6, 3, 11, 1, 9, 15, 7, 13, 5];
 const CELL = 2;
-const LEVELS = 4;
-const LOW = 0.42;
-const HIGH = 0.85;
 const GREY = [255, 255, 255];
 
 const VAULTS = [
@@ -34,24 +31,7 @@ export function VaultsStrip() {
       if (!img.complete || !strip.clientWidth) return;
       const cols = Math.ceil(strip.clientWidth / CELL);
       const rows = Math.ceil(strip.clientHeight / CELL);
-      canvas.width = cols;
-      canvas.height = rows;
-      const s = Math.max(cols / img.naturalWidth, rows / img.naturalHeight);
-      const w = img.naturalWidth * s;
-      const h = img.naturalHeight * s;
-      ctx.drawImage(img, (cols - w) / 2, (rows - h) / 2, w, h);
-      const pixels = ctx.getImageData(0, 0, cols, rows).data;
-      levels = new Float32Array(cols * rows);
-      for (let y = 0; y < rows; y++) {
-        for (let x = 0; x < cols; x++) {
-          const i = y * cols + x;
-          const lum =
-            (0.299 * pixels[i * 4] + 0.587 * pixels[i * 4 + 1] + 0.114 * pixels[i * 4 + 2]) / 255;
-          const v = Math.min(1, Math.max(0, (lum - LOW) / (HIGH - LOW)));
-          const t = (BAYER[(y % 4) * 4 + (x % 4)] + 0.5) / 16;
-          levels[i] = Math.min(LEVELS - 1, Math.floor(v * (LEVELS - 1) + t)) / (LEVELS - 1);
-        }
-      }
+      levels = sampleDither(ctx, img, cols, rows);
     };
 
     const draw = () => {
@@ -62,15 +42,7 @@ export function VaultsStrip() {
       const origin = strip.getBoundingClientRect();
       const cellW = origin.width / cols;
       const cellH = origin.height / rows;
-      const tints = vaultRefs.current.map((el) => {
-        const r = el.getBoundingClientRect();
-        return {
-          left: (r.left - origin.left) / cellW,
-          top: (r.top - origin.top) / cellH,
-          right: (r.right - origin.left) / cellW,
-          bottom: (r.bottom - origin.top) / cellH,
-        };
-      });
+      const tints = vaultRefs.current.map((el) => cellRect(el, origin, cellW, cellH));
 
       const out = ctx.createImageData(cols, rows);
       for (let y = 0; y < rows; y++) {

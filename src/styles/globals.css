@@ -823,6 +823,54 @@ footer[id] {
   }
 }
 
+.yield-sources {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow: hidden;
+}
+.yield-box {
+  display: grid;
+  grid-template-columns: repeat(var(--cols), 1fr);
+  place-items: center;
+  gap: 12px 8px;
+  padding: 12px 8px;
+}
+.yield-logo {
+  width: 100%;
+  max-width: 120px;
+  height: auto;
+}
+.yield-box:not(:first-of-type) .yield-logo {
+  width: auto;
+  height: 72px;
+}
+@media (min-width: 768px) {
+  .yield-sources {
+    display: block;
+    aspect-ratio: 1898 / 975;
+  }
+  .yield-box {
+    position: absolute;
+    top: 5.5%;
+    bottom: 5.5%;
+    left: var(--left);
+    width: var(--width);
+    display: block;
+    padding: 0;
+  }
+  .yield-box .yield-logo,
+  .yield-box:not(:first-of-type) .yield-logo {
+    position: absolute;
+    left: var(--x);
+    top: var(--y);
+    width: var(--w);
+    max-width: none;
+    height: auto;
+    translate: -50% -50%;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   [data-reveal] {
     opacity: 1;
