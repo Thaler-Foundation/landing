@@ -10,10 +10,12 @@ export function HeroSection() {
     >
       <div className="w-full max-w-7xl px-6 pt-24 sm:px-8">
         <div data-hero-reveal="left">
-          <h1 className="text-[clamp(44px,10.5vw,128px)] font-medium leading-[0.85] tracking-[-0.06em]">
-            Earn Yield From
+          <h1 className="text-[52px] sm:text-[clamp(52px,10.5vw,128px)] font-medium leading-[0.85] tracking-[-0.06em]">
+            Earn Yield
+            <br className="sm:hidden" /> From
             <br />
-            Market Movement
+            Market
+            <br className="sm:hidden" /> Movement
           </h1>
           <p className="mt-10 text-lg font-medium leading-none tracking-[-0.03em] sm:text-2xl">
             Earn consistent yield, regardless of market direction

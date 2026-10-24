@@ -724,17 +724,18 @@ footer[id] {
 .vaults {
   display: flex;
   flex-direction: column;
+  gap: 16px;
   container-type: inline-size;
 }
 .vault {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 240px;
+  height: 168px;
 }
 .vault-box {
-  width: 64%;
-  height: 80%;
+  width: 50%;
+  height: 84%;
 }
 @media (min-width: 768px) {
   .vaults {

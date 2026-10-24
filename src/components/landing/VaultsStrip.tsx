@@ -3,7 +3,7 @@
 import { useEffect, useRef } from 'react';
 
 const BAYER = [0, 8, 2, 10, 12, 4, 14, 6, 3, 11, 1, 9, 15, 7, 13, 5];
-const CELL = 3;
+const CELL = 2;
 const LEVELS = 4;
 const LOW = 0.42;
 const HIGH = 0.85;
@@ -24,6 +24,7 @@ export function VaultsStrip() {
     const strip = stripRef.current!;
     const canvas = canvasRef.current!;
     const ctx = canvas.getContext('2d')!;
+    const desktop = matchMedia('(min-width: 768px)');
     const img = new Image();
     img.src = '/vaults-bg.webp';
     let levels = new Float32Array(0);
@@ -81,6 +82,7 @@ export function VaultsStrip() {
           const t = tints.findIndex(
             (r) => x + 0.5 >= r.left && x + 0.5 < r.right && y + 0.5 >= r.top && y + 0.5 < r.bottom
           );
+          if (t === -1 && !desktop.matches) continue;
           const color = t === -1 ? GREY : VAULTS[t].color;
           out.data[i * 4] = q * color[0];
           out.data[i * 4 + 1] = q * color[1];
@@ -129,15 +131,15 @@ export function VaultsStrip() {
           className="vault"
         >
           <div className="vault-box flex flex-col items-center justify-center bg-black text-center">
-            <p className="text-2xl font-medium leading-none tracking-[-0.03em] md:text-[clamp(18px,2.3cqw,28px)]">
+            <p className="text-lg font-medium leading-none tracking-[-0.03em] md:text-[clamp(18px,2.3cqw,28px)]">
               {vault.name}
               <br />
               Vault
             </p>
-            <p className="mt-[0.2em] text-6xl font-semibold leading-none tracking-[-0.06em] md:text-[clamp(40px,6.6cqw,80px)]">
+            <p className="mt-[0.2em] text-5xl font-semibold leading-none tracking-[-0.06em] md:text-[clamp(40px,6.6cqw,80px)]">
               {vault.returns}
             </p>
-            <p className="mt-[0.6em] text-2xl font-medium leading-none tracking-[-0.03em] md:text-[clamp(18px,2.3cqw,28px)]">
+            <p className="mt-[0.6em] text-lg font-medium leading-none tracking-[-0.03em] md:text-[clamp(18px,2.3cqw,28px)]">
               Returns
             </p>
           </div>
