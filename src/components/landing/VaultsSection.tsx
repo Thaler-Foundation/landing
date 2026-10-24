@@ -1,0 +1,22 @@
+import { VaultsStrip } from '@/components/landing/VaultsStrip';
+import { poppins } from '@/lib/fonts';
+import { cn } from '@/lib/utils/cn';
+
+export function VaultsSection() {
+  return (
+    <section className={cn(poppins.className, 'flex justify-center py-28 text-white')}>
+      <div className="w-full max-w-7xl px-6 sm:px-8" data-reveal="scale">
+        <h2 className="text-4xl font-medium leading-none tracking-[-0.03em] sm:text-[48px]">
+          Multiple vaults, one wallet
+        </h2>
+        <div className="mt-10">
+          <VaultsStrip />
+        </div>
+        <p className="mt-10 text-base font-medium leading-snug tracking-[-0.02em] sm:text-lg">
+          Run different strategies side by side. Each vault is isolated, with its own risk profile
+          and on-chain policies.
+        </p>
+      </div>
+    </section>
+  );
+}

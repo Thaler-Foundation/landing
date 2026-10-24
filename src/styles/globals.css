@@ -721,6 +721,69 @@ footer[id] {
   transform: translateX(0.3em) skewX(-10deg);
 }
 
+.vaults {
+  display: flex;
+  flex-direction: column;
+  container-type: inline-size;
+}
+.vault {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 240px;
+}
+.vault-box {
+  width: 64%;
+  height: 80%;
+}
+@media (min-width: 768px) {
+  .vaults {
+    display: block;
+    aspect-ratio: 1070 / 296;
+    overflow: hidden;
+  }
+  .vault {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 25.5cqw;
+    height: auto;
+    transition:
+      left 250ms ease-in-out,
+      width 250ms ease-in-out;
+  }
+  .vault:nth-of-type(1) {
+    left: 0;
+  }
+  .vault:nth-of-type(2) {
+    left: 37.25cqw;
+  }
+  .vault:nth-of-type(3) {
+    left: 74.5cqw;
+  }
+  .vault-box {
+    position: absolute;
+    inset: 4.5% 4.25cqw;
+    width: auto;
+    height: auto;
+  }
+}
+@media (min-width: 768px) and (hover: hover) {
+  .vault:hover {
+    width: 49cqw;
+  }
+  .vault:nth-of-type(2):hover,
+  .vaults:has(.vault:nth-of-type(3):hover) .vault:nth-of-type(2) {
+    left: 25.5cqw;
+  }
+  .vaults:has(.vault:nth-of-type(1):hover) .vault:nth-of-type(2) {
+    left: 49cqw;
+  }
+  .vault:nth-of-type(3):hover {
+    left: 51cqw;
+  }
+}
+
 /* Docs/developer card mascot eyes — wander on card hover */
 .mascot-eye {
   transform-box: fill-box;
@@ -778,7 +841,8 @@ footer[id] {
     animation: none;
   }
   .cta-early-access-arrow,
-  .cta-early-access-label {
+  .cta-early-access-label,
+  .vault {
     transition: none;
   }
 }

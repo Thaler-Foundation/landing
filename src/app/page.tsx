@@ -1,5 +1,5 @@
 import { HeroSection } from '@/components/landing/HeroSection';
-import { SplitFeature } from '@/components/landing/SplitFeature';
+import { VaultsSection } from '@/components/landing/VaultsSection';
 import { PaymentRails } from '@/components/landing/PaymentRails';
 import { StrategyShowcase } from '@/components/landing/StrategyShowcase';
 import { LandingRoadmap } from '@/components/landing/LandingRoadmap';
@@ -32,7 +32,7 @@ export default function LandingPage() {
           <Header />
         </Suspense>
         <HeroSection />
-        <SplitFeature />
+        <VaultsSection />
         <PaymentRails />
         <StrategyShowcase />
         <LandingRoadmap />
