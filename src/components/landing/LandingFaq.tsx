@@ -1,6 +1,8 @@
 'use client';
 
 import { useState } from 'react';
+import { poppins } from '@/lib/fonts';
+import { cn } from '@/lib/utils/cn';
 
 export type FaqItem = { question: string; answer: string };
 
@@ -62,13 +64,16 @@ export function LandingFaq({ items = LANDING_FAQS }: { items?: FaqItem[] }) {
 
   return (
     <section
-      className="bg-background flex w-full justify-center px-6 py-16 sm:px-8 lg:py-24"
+      className={cn(
+        poppins.className,
+        'bg-background flex w-full justify-center px-6 py-16 text-white sm:px-8 lg:py-24'
+      )}
       id="faq"
     >
       <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
       <div className="grid w-full max-w-7xl gap-8 lg:grid-cols-2 lg:gap-6">
         <div className="lg:pb-0" data-reveal="left">
-          <h2 className="text-altitude-black dark:text-white text-[34px] font-semibold leading-[1.02] tracking-[-0.02em] sm:text-[48px] lg:text-[56px]">
+          <h2 className="text-4xl font-semibold leading-none tracking-[-0.03em] sm:text-[48px]">
             Questions?
             <br />
             Answers.
@@ -96,7 +101,7 @@ export function LandingFaq({ items = LANDING_FAQS }: { items?: FaqItem[] }) {
                       }`}
                     />
                   </span>
-                  <span className="text-altitude-black dark:text-white block min-w-0 text-xl font-medium leading-[1.15] sm:text-[22px]">
+                  <span className="block min-w-0 text-[20px] font-semibold leading-snug tracking-[-0.02em] sm:text-[24px]">
                     {faq.question}
                   </span>
                 </button>
@@ -107,7 +112,7 @@ export function LandingFaq({ items = LANDING_FAQS }: { items?: FaqItem[] }) {
                   id={answerId}
                 >
                   <div className="min-h-0 overflow-hidden">
-                    <p className="text-foreground/55 max-w-xl pb-6 pl-11 text-base leading-relaxed">
+                    <p className="max-w-xl pb-6 pl-11 text-[16px] font-normal leading-[1.8] sm:text-[18px]">
                       {faq.answer}
                     </p>
                   </div>

@@ -18,7 +18,6 @@ const footerColumns: {
     title: 'Product',
     links: [
       { href: '#how-it-works', label: 'How it works' },
-      { href: '#roadmap', label: 'Roadmap' },
       { href: '#faq', label: 'FAQ' },
       { href: '/blog', label: 'Blog' },
       { href: config.docs ?? '#', label: 'Docs', external: true },

@@ -2,7 +2,6 @@ import { HeroSection } from '@/components/landing/HeroSection';
 import { VaultsSection } from '@/components/landing/VaultsSection';
 import { PaymentRails } from '@/components/landing/PaymentRails';
 import { YieldSourcesSection } from '@/components/landing/YieldSourcesSection';
-import { LandingRoadmap } from '@/components/landing/LandingRoadmap';
 import { LandingFaq } from '@/components/landing/LandingFaq';
 import { LandingBlog } from '@/components/landing/LandingBlog';
 import { FinalCTA } from '@/components/landing/FinalCTA';
@@ -35,9 +34,8 @@ export default function LandingPage() {
         <VaultsSection />
         <PaymentRails />
         <YieldSourcesSection />
-        <LandingRoadmap />
-        <LandingFaq />
         <LandingBlog />
+        <LandingFaq />
         <FinalCTA />
         <Footer />
       </div>

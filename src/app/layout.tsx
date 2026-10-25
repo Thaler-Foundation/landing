@@ -47,7 +47,12 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning className={cn(geist.className, 'font-sans')}>
+    <html
+      lang="en"
+      data-scroll-behavior="smooth"
+      suppressHydrationWarning
+      className={cn(geist.className, 'font-sans')}
+    >
       <head>
         <meta
           name="google-site-verification"

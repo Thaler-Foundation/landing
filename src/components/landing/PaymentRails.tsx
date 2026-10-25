@@ -23,26 +23,8 @@ export function PaymentRails() {
   const [active, setActive] = useState<RailKey>('accounts');
   const [progress, setProgress] = useState(0);
   const [paused, setPaused] = useState(false);
-  const [solPriceUsd, setSolPriceUsd] = useState<number | null>(null);
   const progressRef = useRef(0);
   const activeRef = useRef<RailKey>('accounts');
-
-  // Live SOL price for the Yield Settlement card's USD value (reuses the public
-  // /api/stats proxy the hero already consumes). Fetched once; null until ready.
-  useEffect(() => {
-    let alive = true;
-    fetch('/api/stats')
-      .then((r) => r.json())
-      .then((d: { solPriceUsd?: number }) => {
-        if (alive && typeof d?.solPriceUsd === 'number' && d.solPriceUsd > 0) {
-          setSolPriceUsd(d.solPriceUsd);
-        }
-      })
-      .catch(() => {});
-    return () => {
-      alive = false;
-    };
-  }, []);
 
   const rails: Rail[] = [
     {
@@ -178,7 +160,7 @@ export function PaymentRails() {
               >
                 {active === 'accounts' && <AccountsCard t={t} />}
                 {active === 'payments' && <PaymentsCard t={t} />}
-                {active === 'stablecoin' && <StablecoinCard t={t} solPriceUsd={solPriceUsd} />}
+                {active === 'stablecoin' && <StablecoinCard t={t} />}
               </motion.div>
             </AnimatePresence>
           </div>
@@ -245,17 +227,7 @@ function PaymentsCard({ t }: { t: T }) {
   );
 }
 
-function StablecoinCard({ t, solPriceUsd }: { t: T; solPriceUsd: number | null }) {
-  // The claim amount is denominated in SOL ("254.31 SOL"); show its live USD
-  // value beneath it. Empty until the price loads, so nothing stale is shown.
-  const amountSol = Number.parseFloat(t('cards.stablecoin.amount'));
-  const usdValue =
-    solPriceUsd && Number.isFinite(amountSol)
-      ? `≈ $${(amountSol * solPriceUsd).toLocaleString('en-US', {
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2,
-        })} USD`
-      : '';
+function StablecoinCard({ t }: { t: T }) {
   return (
     <div className="w-full max-w-xs sm:max-w-sm bg-card text-card-foreground border border-foreground/[0.06] rounded-2xl shadow-[0_20px_44px_-20px_rgba(0,0,0,0.35)] p-6">
       <div className="flex items-start justify-between mb-4">
@@ -267,7 +239,6 @@ function StablecoinCard({ t, solPriceUsd }: { t: T; solPriceUsd: number | null }
           {t('cards.stablecoin.status')}
         </span>
       </div>
-      <div className="text-xs text-foreground/50 mb-4 tabular-nums">{usdValue}</div>
       <div className="pt-4 border-t border-foreground/[0.06] space-y-2 text-sm">
         <div className="flex justify-between">
           <span className="text-foreground/50">{t('cards.stablecoin.fromLabel')}</span>
