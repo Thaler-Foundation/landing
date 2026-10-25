@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import Link from 'next/link';
 
 const BAYER = [0, 8, 2, 10, 12, 4, 14, 6, 3, 11, 1, 9, 15, 7, 13, 5];
 const CELL = 4;
@@ -116,19 +115,19 @@ export function HeroCta() {
   const [active, setActive] = useState(false);
 
   return (
-    <Link
-      href="/#get-started"
+    <button
+      type="button"
       onMouseEnter={() => setActive(true)}
       onMouseLeave={() => setActive(false)}
       onFocus={() => setActive(true)}
       onBlur={() => setActive(false)}
-      className="cta-early-access group absolute inset-x-0 top-0 isolate flex h-20 items-center overflow-hidden pl-2 transition-[height] duration-400 ease-in-out hover:h-40 focus-visible:h-40"
+      className="cta-early-access group absolute inset-x-0 top-0 isolate flex h-20 items-center overflow-hidden pl-2 text-left transition-[height] duration-400 ease-in-out hover:h-40 focus-visible:h-40"
     >
       <DitherBackground active={active} />
       <span className="flex origin-left items-center gap-[0.55em] text-xl font-semibold leading-none tracking-[-0.05em] transition-transform duration-400 ease-in-out group-hover:scale-150 group-focus-visible:scale-150 sm:text-[28px]">
         <span aria-hidden className="cta-early-access-arrow h-[1.1em] w-[1.1em] bg-current" />
         <span className="cta-early-access-label">Join Early Access</span>
       </span>
-    </Link>
+    </button>
   );
 }

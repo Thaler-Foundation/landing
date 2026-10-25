@@ -28,8 +28,8 @@ function Logo() {
 
 function EarlyAccessCta({ className }: { className?: string }) {
   return (
-    <Link
-      href="/#get-started"
+    <button
+      type="button"
       className={cn(
         'cta-early-access inline-flex items-center gap-[0.55em] text-[18px]',
         className
@@ -39,7 +39,7 @@ function EarlyAccessCta({ className }: { className?: string }) {
       <span className="cta-early-access-label">
         <span className="hidden sm:inline">Join </span>Early Access
       </span>
-    </Link>
+    </button>
   );
 }
 
