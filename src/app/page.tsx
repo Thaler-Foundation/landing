@@ -1,6 +1,5 @@
 import { HeroSection } from '@/components/landing/HeroSection';
 import { VaultsSection } from '@/components/landing/VaultsSection';
-import { PaymentRails } from '@/components/landing/PaymentRails';
 import { YieldSourcesSection } from '@/components/landing/YieldSourcesSection';
 import { LandingFaq } from '@/components/landing/LandingFaq';
 import { LandingBlog } from '@/components/landing/LandingBlog';
@@ -32,7 +31,6 @@ export default function LandingPage() {
         </Suspense>
         <HeroSection />
         <VaultsSection />
-        <PaymentRails />
         <YieldSourcesSection />
         <LandingBlog />
         <LandingFaq />
