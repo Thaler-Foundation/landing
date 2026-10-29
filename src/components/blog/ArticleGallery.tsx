@@ -131,7 +131,7 @@ export function ArticleGallery({ children }: { children: ReactNode }) {
         ref={dialog}
         onClose={close}
         onKeyDown={onKeyDown}
-        className="m-0 h-dvh max-h-none w-screen max-w-none overflow-hidden bg-black p-0 text-white backdrop:bg-black/60 md:bg-black/90"
+        className="m-0 h-dvh max-h-none w-screen max-w-none overflow-hidden bg-background p-0 text-white backdrop:bg-black/60 md:bg-background/90"
       >
         {open && (
           <div

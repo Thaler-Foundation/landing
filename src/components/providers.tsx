@@ -3,6 +3,7 @@
 import React from 'react';
 import { ThemeProvider } from 'next-themes';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { AccessDrawerProvider } from '@/components/access/AccessDrawer';
 
 const queryClient = new QueryClient();
 
@@ -21,7 +22,7 @@ export function Providers({ children }: ProvidersProps) {
         storageKey="thaler-theme"
         disableTransitionOnChange
       >
-        {children}
+        <AccessDrawerProvider>{children}</AccessDrawerProvider>
       </ThemeProvider>
     </QueryClientProvider>
   );

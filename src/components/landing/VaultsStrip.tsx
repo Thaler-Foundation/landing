@@ -88,11 +88,11 @@ export function VaultsStrip() {
   }, []);
 
   return (
-    <div ref={stripRef} className="vaults relative isolate">
+    <div ref={stripRef} className="vaults relative isolate bg-background">
       <canvas
         ref={canvasRef}
         aria-hidden
-        className="absolute inset-0 -z-10 h-full w-full [image-rendering:pixelated]"
+        className="absolute inset-0 -z-10 h-full w-full mix-blend-lighten [image-rendering:pixelated]"
       />
       {VAULTS.map((vault, i) => (
         <div
@@ -102,7 +102,7 @@ export function VaultsStrip() {
           }}
           className="vault"
         >
-          <div className="vault-box flex flex-col items-center justify-center bg-black text-center">
+          <div className="vault-box flex flex-col items-center justify-center bg-background text-center">
             <p className="text-lg font-medium leading-none tracking-[-0.03em] md:text-[clamp(18px,2.3cqw,28px)]">
               {vault.name}
               <br />

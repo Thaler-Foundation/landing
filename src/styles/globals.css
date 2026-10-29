@@ -203,7 +203,6 @@
   }
 
   .dark {
-    --background: #000000;
     --foreground: oklch(0.985 0 0);
     --card: #141416;
     --card-foreground: oklch(0.985 0 0);
@@ -525,7 +524,7 @@ footer[id] {
 .blog-video {
   display: block;
   width: 100%;
-  background: #000;
+  background: var(--background);
   --media-primary-color: #fff;
   --media-secondary-color: transparent;
   --media-control-background: transparent;
@@ -575,7 +574,7 @@ footer[id] {
   --tweet-color-blue-secondary: #1d96ea;
   --tweet-container-margin: 0;
   --tweet-font-family: inherit;
-  --tweet-bg-color: #000;
+  --tweet-bg-color: var(--background);
   --tweet-bg-color-hover: rgb(255 255 255 / 0.03);
   --tweet-border: 1px solid rgb(255 255 255 / 0.15);
 }

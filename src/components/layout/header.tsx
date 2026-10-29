@@ -6,6 +6,7 @@ import Link from 'next/link';
 import config from '@/config';
 import { cn } from '@/lib/utils/cn';
 import { poppins } from '@/lib/fonts';
+import { AccessDrawerTrigger } from '@/components/access/AccessDrawer';
 
 function Logo() {
   return (
@@ -28,8 +29,7 @@ function Logo() {
 
 function EarlyAccessCta({ className }: { className?: string }) {
   return (
-    <button
-      type="button"
+    <AccessDrawerTrigger
       className={cn(
         'cta-early-access inline-flex items-center gap-[0.55em] text-[18px]',
         className
@@ -39,7 +39,7 @@ function EarlyAccessCta({ className }: { className?: string }) {
       <span className="cta-early-access-label">
         <span className="hidden sm:inline">Join </span>Early Access
       </span>
-    </button>
+    </AccessDrawerTrigger>
   );
 }
 
@@ -60,7 +60,7 @@ export const Header = () => {
         poppins.className,
         'fixed inset-x-0 top-0 z-50 w-full font-semibold leading-none tracking-[-0.05em] text-white transition-colors duration-300',
         scrolled
-          ? 'bg-black/80 backdrop-blur-md border-b border-white/[0.07]'
+          ? 'bg-background border-b border-white/[0.07]'
           : 'bg-transparent border-b border-transparent'
       )}
     >

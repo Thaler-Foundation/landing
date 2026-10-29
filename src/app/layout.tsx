@@ -1,5 +1,6 @@
 import { Geist } from 'next/font/google';
 import Script from 'next/script';
+import config from '@/config';
 import { Providers } from '@/components/providers';
 import { cn } from '@/lib/utils/cn';
 import { getSEOTags } from '@/lib/seo';
@@ -52,6 +53,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       data-scroll-behavior="smooth"
       suppressHydrationWarning
       className={cn(geist.className, 'font-sans')}
+      style={{ '--background': config.background } as React.CSSProperties}
     >
       <head>
         <meta

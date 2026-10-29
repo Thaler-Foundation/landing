@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { AccessDrawerTrigger } from '@/components/access/AccessDrawer';
 
 const BAYER = [0, 8, 2, 10, 12, 4, 14, 6, 3, 11, 1, 9, 15, 7, 13, 5];
 const CELL = 4;
@@ -115,8 +116,7 @@ export function HeroCta() {
   const [active, setActive] = useState(false);
 
   return (
-    <button
-      type="button"
+    <AccessDrawerTrigger
       onMouseEnter={() => setActive(true)}
       onMouseLeave={() => setActive(false)}
       onFocus={() => setActive(true)}
@@ -128,6 +128,6 @@ export function HeroCta() {
         <span aria-hidden className="cta-early-access-arrow h-[1.1em] w-[1.1em] bg-current" />
         <span className="cta-early-access-label">Join Early Access</span>
       </span>
-    </button>
+    </AccessDrawerTrigger>
   );
 }

@@ -7,4 +7,6 @@ export interface ConfigProps {
     xTwitter?: string | null;
   };
   docs?: string;
+  dashboard: string;
+  background: string;
 }
