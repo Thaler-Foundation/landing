@@ -1,5 +1,5 @@
 ---
-title: Week 10 to Week 13 at Thaler
+title: Week 10-13 at Thaler
 date: 2026-09-12
 tag: Weekly Update
 image: /blog/blog-9/header.png

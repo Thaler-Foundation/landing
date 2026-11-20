@@ -23,7 +23,7 @@ const plainExcerpt = (content: string) => {
   let excerpt = '';
   for (const block of content.split(/\n\s*\n/).map((b) => b.trim())) {
     if (!block) continue;
-    if (/^(#|!\[|>|-{3,}|```|<|[-*] |\d+\. )/.test(block)) continue;
+    if (/^(#|!\[|>|-{3,}|```|<|[-*] |\d+\. |https?:\/\/\S+$)/.test(block)) continue;
     const text = block
       .replace(/\[([^\]]*)\]\([^)]*\)/g, '$1')
       .replace(/[*_`]/g, '')

@@ -1,5 +1,5 @@
 ---
-title: Week 7 to Week 9 at Thaler
+title: Week 7-9 at Thaler
 date: 2026-08-14
 tag: Weekly Update
 image: /blog/blog-8/header.png

@@ -1,6 +1,6 @@
 ---
-title: Week 18 to Week 22 at Thaler
-date: 2026-11-19
+title: Week 18-22 at Thaler
+date: 2026-11-13
 tag: Weekly Update
 image: /blog/blog-13/header.png
 ---

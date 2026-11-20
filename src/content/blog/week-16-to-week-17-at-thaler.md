@@ -1,5 +1,5 @@
 ---
-title: Week 16 to Week 17 at Thaler
+title: Week 16-17 at Thaler
 date: 2026-10-09
 tag: Weekly Update
 image: /blog/blog-12/header.png
