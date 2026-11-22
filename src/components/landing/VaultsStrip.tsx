@@ -7,9 +7,9 @@ const CELL = 2;
 const GREY = [255, 255, 255];
 
 const VAULTS = [
-  { name: 'Safe', color: [102, 153, 255] },
-  { name: 'Conservative', color: [102, 255, 204] },
-  { name: 'Balanced', color: [153, 255, 102] },
+  { name: 'Safe', color: [128, 170, 255] },
+  { name: 'Conservative', color: [128, 255, 213] },
+  { name: 'Balanced', color: [170, 255, 128] },
 ];
 
 export function VaultsStrip({ returns }: { returns: number[] }) {
