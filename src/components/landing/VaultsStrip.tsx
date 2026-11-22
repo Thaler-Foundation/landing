@@ -7,12 +7,12 @@ const CELL = 2;
 const GREY = [255, 255, 255];
 
 const VAULTS = [
-  { name: 'Safe', returns: '11%', color: [0, 255, 255] },
-  { name: 'Balanced', returns: '13%', color: [255, 225, 0] },
-  { name: 'Aggressive', returns: '16%', color: [255, 0, 0] },
+  { name: 'Safe', color: [0, 255, 255] },
+  { name: 'Conservative', color: [255, 225, 0] },
+  { name: 'Balanced', color: [255, 0, 0] },
 ];
 
-export function VaultsStrip() {
+export function VaultsStrip({ returns }: { returns: number[] }) {
   const stripRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const vaultRefs = useRef<HTMLDivElement[]>([]);
@@ -109,7 +109,7 @@ export function VaultsStrip() {
               Vault
             </p>
             <p className="mt-[0.2em] text-5xl font-semibold leading-none tracking-[-0.06em] md:text-[clamp(40px,6.6cqw,80px)]">
-              {vault.returns}
+              {returns[i]}%
             </p>
             <p className="mt-[0.6em] text-lg font-medium leading-none tracking-[-0.03em] md:text-[clamp(18px,2.3cqw,28px)]">
               Returns

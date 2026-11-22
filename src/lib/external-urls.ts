@@ -14,10 +14,10 @@ export function getHermesEndpoint(): string {
   return process.env.NEXT_PUBLIC_HERMES_ENDPOINT ?? HERMES_DEFAULT;
 }
 
-const LOCALHOST_API_DEFAULT = 'http://localhost:4001';
+const THALER_API_DEFAULT = 'https://thalerapi-production.up.railway.app';
 
 export function getThalerApiBaseUrl(): string {
   return (
-    process.env.THALER_API_BASE_URL ?? process.env.NEXT_PUBLIC_API_BASE_URL ?? LOCALHOST_API_DEFAULT
+    process.env.THALER_API_BASE_URL ?? process.env.NEXT_PUBLIC_API_BASE_URL ?? THALER_API_DEFAULT
   );
 }
