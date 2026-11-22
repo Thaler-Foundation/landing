@@ -1,0 +1,268 @@
+openapi: 3.0.3
+info:
+  title: Thaler Finance Landing Page API
+  version: '2026-11-21'
+  description: |-
+    One route: `GET /public/protocol/analytics`.
+
+    Conventions: APY values are basis points (bps), 100 bps = 1 percent. Dates are UTC days `YYYY-MM-DD`. Modes map to tiers: A=safe, B=conservative, C=balanced, D=optimistic, E=aggressive, F=yolo.
+servers:
+- url: https://thalerapi-production.up.railway.app
+  description: Production (host from apps/web/src/app/api/stats/route.ts:3, live-checked 2026-11-21)
+paths:
+  /public/protocol/analytics:
+    get:
+      tags:
+      - Landing
+      operationId: getPublicProtocolAnalytics
+      summary: Protocol data for the landing page
+      description: |-
+        The one route the landing page calls. No API key, no user token, open CORS (`Access-Control-Allow-Origin: *`), 120 requests per IP per 60 s, server cache 60 s.
+
+        It returns the same payload as the protected `GET /v1/analytics` that the web app reads, from the same computation and the same cache, so the landing page and the web app show the same numbers. Protocol-wide aggregates only.
+
+        Status: built on 2026-11-21 in the worktree branch `feat/public-protocol-analytics-2026-11-21`, not deployed. Production answers 404 on this path until that code is deployed.
+
+        A 500 with `{"error":{"code":"internal_error","message":"internal error"}}` is returned while the server has no SOL price.
+      security: []
+      x-landing-usable: true
+      x-deployed: false
+      x-source: apps/api/src/transport/http/routes/public-protocol.ts (publicAnalyticsRoutes), loader makeAnalyticsLoader
+        in routes/analytics.ts, on the local branch
+      x-data-source: database (executions, positions, scalp events, claim ledger, yield snapshots, vault_carry_daily,
+        funding ledger), Quant cache readers (filled from the database), SOL price from the venue websocket feed
+      responses:
+        '200':
+          description: Analytics.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnalyticsData'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+        '500':
+          $ref: '#/components/responses/InternalError'
+components:
+  responses:
+    RateLimited:
+      description: Too many requests (code `rate_limited`).
+      headers:
+        Retry-After:
+          description: Seconds until the window resets.
+          schema:
+            type: integer
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorEnvelope'
+    InternalError:
+      description: Server error. The message is always `internal error`.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorEnvelope'
+  schemas:
+    ErrorEnvelope:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          type: object
+          required:
+          - code
+          - message
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+            details: {}
+    Mode:
+      type: string
+      enum:
+      - A
+      - B
+      - C
+      - D
+      - E
+      - F
+    AnalyticsData:
+      type: object
+      description: packages/contracts/src/analytics.ts:78-86. The server validates the payload before sending.
+      required:
+      - kpis
+      - tvlDailyUsd
+      - tvlByModeDaily
+      - apyByModeDaily
+      - strategyBreakdown
+      - venueAllocation
+      - assetAllocation
+      properties:
+        kpis:
+          type: object
+          required:
+          - totalTvlUsd
+          - activeVaultCount
+          - yield30dUsd
+          - projectedApyBps
+          - weightedAvgApyBps
+          - tvl30dGrowthPct
+          - vaults30dDelta
+          properties:
+            totalTvlUsd:
+              type: number
+            activeVaultCount:
+              type: integer
+              minimum: 0
+            yield30dUsd:
+              type: number
+            projectedApyBps:
+              type: number
+              description: Median of the per-vault APY; 0 when none.
+            weightedAvgApyBps:
+              type: number
+            roiPct:
+              type: number
+            apy30dMedianBps:
+              type: number
+              description: 30-day yield over TVL, annualized.
+            tvl30dGrowthPct:
+              type: number
+            tvl30dGrowthUsd:
+              type: number
+            vaults30dDelta:
+              type: number
+            totalYieldGeneratedUsd:
+              type: number
+            totalYieldClaimedUsd:
+              type: number
+        tvlDailyUsd:
+          type: array
+          description: 90 daily points, oldest first.
+          items:
+            type: object
+            required:
+            - date
+            - tvlUsd
+            properties:
+              date:
+                type: string
+              tvlUsd:
+                type: number
+        tvlByModeDaily:
+          type: array
+          items:
+            type: object
+            required:
+            - date
+            - mode
+            - tvlUsd
+            properties:
+              date:
+                type: string
+              mode:
+                $ref: '#/components/schemas/Mode'
+              tvlUsd:
+                type: number
+        apyByModeDaily:
+          type: array
+          items:
+            type: object
+            required:
+            - date
+            - mode
+            - apyBps
+            properties:
+              date:
+                type: string
+              mode:
+                $ref: '#/components/schemas/Mode'
+              apyBps:
+                type: number
+        strategyBreakdown:
+          type: array
+          items:
+            type: object
+            required:
+            - mode
+            - vaultCount
+            - tvlUsd
+            - projectedApyBps
+            - yield30dUsd
+            - utilization
+            properties:
+              mode:
+                $ref: '#/components/schemas/Mode'
+              vaultCount:
+                type: integer
+                minimum: 0
+              tvlUsd:
+                type: number
+              tvlSol:
+                type: number
+              projectedApyBps:
+                type: number
+              roiPct:
+                type: number
+              meanVaultApyBps:
+                type: number
+                nullable: true
+              apy30dMedianBps:
+                type: number
+                nullable: true
+              rolling30dApyBps:
+                type: number
+              pendingUsdcUsd:
+                type: number
+                nullable: true
+              yield30dUsd:
+                type: number
+              lifetimeYieldUsd:
+                type: number
+              lifetimeYieldSol:
+                type: number
+              utilization:
+                type: number
+              avgMultiplyNetCarryBps:
+                type: number
+                nullable: true
+        venueAllocation:
+          type: array
+          items:
+            type: object
+            required:
+            - venue
+            - pct
+            properties:
+              venue:
+                type: string
+              pct:
+                type: number
+              id:
+                type: string
+              kind:
+                type: string
+                enum:
+                - lending
+                - perp
+              enabled:
+                type: boolean
+        assetAllocation:
+          type: array
+          items:
+            type: object
+            required:
+            - name
+            - pct
+            properties:
+              name:
+                type: string
+              pct:
+                type: number
+              id:
+                type: string
+              enabled:
+                type: boolean
+tags:
+- name: Landing

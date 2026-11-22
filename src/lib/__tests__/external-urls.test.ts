@@ -47,9 +47,9 @@ describe('getThalerApiBaseUrl', () => {
     expect(getThalerApiBaseUrl()).toBe('https://api.public.com');
   });
 
-  it('falls back to localhost when nothing is set', () => {
+  it('falls back to the production API when nothing is set', () => {
     delete process.env.THALER_API_BASE_URL;
     delete process.env.NEXT_PUBLIC_API_BASE_URL;
-    expect(getThalerApiBaseUrl()).toBe('http://localhost:4001');
+    expect(getThalerApiBaseUrl()).toBe('https://thalerapi-production.up.railway.app');
   });
 });

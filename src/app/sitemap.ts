@@ -1,4 +1,5 @@
 import type { MetadataRoute } from 'next';
+import { getPosts } from '@/lib/blog';
 import { BASE_URL } from '@/lib/seo';
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -15,10 +16,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const lastModified = new Date();
 
-  return routes.map(({ path, priority, changeFrequency }) => ({
-    url: `${BASE_URL}${path}`,
-    lastModified,
-    changeFrequency,
-    priority,
-  }));
+  return [
+    ...routes.map(({ path, priority, changeFrequency }) => ({
+      url: `${BASE_URL}${path}`,
+      lastModified,
+      changeFrequency,
+      priority,
+    })),
+    ...getPosts().map((post) => ({
+      url: `${BASE_URL}/blog/${post.slug}`,
+      lastModified: new Date(post.date),
+      changeFrequency: 'yearly' as const,
+      priority: 0.6,
+    })),
+  ];
 }

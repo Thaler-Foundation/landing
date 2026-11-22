@@ -33,6 +33,7 @@ const securityHeaders = [
 
 const nextConfig = {
   reactStrictMode: true,
+  allowedDevOrigins: ['*.ngrok-free.app'],
   turbopack: {},
   serverExternalPackages: ['pino-pretty', 'encoding', 'fs', 'net', 'tls'],
   images: {

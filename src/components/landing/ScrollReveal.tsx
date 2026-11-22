@@ -38,7 +38,17 @@ export function ScrollReveal() {
     });
     mutationObserver.observe(document.body, { childList: true, subtree: true });
 
+    const revealAtBottom = () => {
+      if (window.innerHeight + window.scrollY < document.documentElement.scrollHeight - 2) return;
+      revealElements().forEach((el) => {
+        el.classList.add('is-revealed');
+        observer.unobserve(el);
+      });
+    };
+    window.addEventListener('scroll', revealAtBottom, { passive: true });
+
     return () => {
+      window.removeEventListener('scroll', revealAtBottom);
       mutationObserver.disconnect();
       observer.disconnect();
     };

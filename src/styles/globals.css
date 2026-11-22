@@ -1,5 +1,4 @@
 @import 'tailwindcss';
-@import 'tw-animate-css';
 
 @font-face {
   font-family: 'Nexa';
@@ -120,75 +119,8 @@
   --color-error-800: #991b1b;
   --color-error-900: #7f1d1d;
 
-  /* Keyframes */
-  @keyframes accordion-down {
-    from {
-      height: 0;
-    }
-    to {
-      height: var(--radix-accordion-content-height);
-    }
-  }
-  @keyframes accordion-up {
-    from {
-      height: var(--radix-accordion-content-height);
-    }
-    to {
-      height: 0;
-    }
-  }
-  @keyframes fade-in {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-  @keyframes slide-in-from-top {
-    from {
-      transform: translateY(-100%);
-    }
-    to {
-      transform: translateY(0);
-    }
-  }
-  @keyframes slide-in-from-bottom {
-    from {
-      transform: translateY(100%);
-    }
-    to {
-      transform: translateY(0);
-    }
-  }
-  @keyframes pulse-glow {
-    0%,
-    100% {
-      opacity: 1;
-    }
-    50% {
-      opacity: 0.5;
-    }
-  }
-  @keyframes rotateY {
-    0% {
-      transform: rotateY(0deg);
-    }
-    100% {
-      transform: rotateY(360deg);
-    }
-  }
   /* Font sizes */
   --text-base: 14px;
-
-  /* Animations */
-  --animate-accordion-down: accordion-down 0.2s ease-out;
-  --animate-accordion-up: accordion-up 0.2s ease-out;
-  --animate-fade-in: fade-in 0.3s ease-in-out;
-  --animate-slide-in-top: slide-in-from-top 0.3s ease-out;
-  --animate-slide-in-bottom: slide-in-from-bottom 0.3s ease-out;
-  --animate-pulse-glow: pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-  --animate-logo-spin: rotateY 1.5s linear infinite;
 }
 
 /*
@@ -268,18 +200,9 @@
     --sidebar-accent-foreground: oklch(0.205 0 0);
     --sidebar-border: oklch(0.922 0 0);
     --sidebar-ring: oklch(0.708 0 0);
-
-    /* Status colors — defaults match current Tailwind green-500 / red-500 / warning */
-    --thaler-positive: #10b981;
-    --thaler-negative: #ef4444;
-    --thaler-warning: #f59e0b;
   }
 
   .dark {
-    /* True Altitude black canvas — matches the hero and SectionBackdrop panels
-       (#0a0a0b) so the page and its branded surfaces are one seamless black.
-       Cards/popovers lift one step so they separate from the canvas. */
-    --background: #0a0a0b;
     --foreground: oklch(0.985 0 0);
     --card: #141416;
     --card-foreground: oklch(0.985 0 0);
@@ -311,10 +234,6 @@
     --sidebar-accent-foreground: oklch(0.985 0 0);
     --sidebar-border: oklch(1 0 0 / 10%);
     --sidebar-ring: oklch(0.556 0 0);
-
-    --thaler-positive: #10b981;
-    --thaler-negative: #ef4444;
-    --thaler-warning: #f59e0b;
   }
 
   * {
@@ -359,176 +278,6 @@
   font-weight: 700;
   font-size: 32px;
   letter-spacing: -0.03em;
-}
-
-@layer utilities {
-  .scrollbar-thin::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
-  }
-  .scrollbar-thin::-webkit-scrollbar-track {
-    @apply bg-altitude-gray-200;
-  }
-  .scrollbar-thin::-webkit-scrollbar-thumb {
-    @apply bg-altitude-gray-500 rounded-full hover:bg-altitude-gray-600;
-  }
-  .logo-spin {
-    animation: rotateY 1.5s linear infinite;
-    transform-style: preserve-3d;
-  }
-  @keyframes gradientFlow {
-    0% {
-      background-position: 0% 50%;
-    }
-    50% {
-      background-position: 100% 50%;
-    }
-    100% {
-      background-position: 0% 50%;
-    }
-  }
-  .animate-gradient {
-    animation: gradientFlow 6s ease infinite;
-  }
-
-  /* Status color utilities (replace text-green-500 / text-red-500 / bg-warning sites) */
-  .text-thaler-positive {
-    color: var(--thaler-positive);
-  }
-  .text-thaler-negative {
-    color: var(--thaler-negative);
-  }
-  .text-thaler-warning {
-    color: var(--thaler-warning);
-  }
-  .bg-thaler-positive {
-    background-color: var(--thaler-positive);
-  }
-  .bg-thaler-negative {
-    background-color: var(--thaler-negative);
-  }
-  .bg-thaler-warning {
-    background-color: var(--thaler-warning);
-  }
-
-  /* Density utilities — keyed on root data-density attribute set by PreferencesProvider */
-  [data-density='compact'] .density-py-3 {
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
-  }
-  [data-density='comfortable'] .density-py-3 {
-    padding-top: 0.75rem;
-    padding-bottom: 0.75rem;
-  }
-  [data-density='compact'] .density-px-5 {
-    padding-left: 0.75rem;
-    padding-right: 0.75rem;
-  }
-  [data-density='comfortable'] .density-px-5 {
-    padding-left: 1.25rem;
-    padding-right: 1.25rem;
-  }
-
-  /* Hide-balances blur — keyed on root data-hide-balances attribute. Scopes
-     to .font-mono.tabular-nums (always paired on monetary/token displays)
-     plus an opt-in .balance-blur class for headline numbers that use only
-     .tabular-nums. Deliberately NOT keyed on .tabular-nums alone so dates,
-     vault IDs, latency strings, etc. don't blur. */
-  [data-hide-balances='true'] .font-mono.tabular-nums,
-  [data-hide-balances='true'] .balance-blur {
-    filter: blur(6px);
-    transition: filter 0.15s ease;
-  }
-  [data-hide-balances='true'] .font-mono.tabular-nums:hover,
-  [data-hide-balances='true'] .balance-blur:hover {
-    filter: none;
-  }
-}
-
-.btn-primary {
-  @apply bg-altitude-black text-white px-6 py-3 rounded-lg font-medium transition-all duration-200 hover:bg-altitude-gray-900 active:scale-[0.98];
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-}
-
-.btn-secondary {
-  @apply bg-white text-altitude-black px-6 py-3 rounded-lg font-medium border border-altitude-gray-400 transition-all duration-200 hover:bg-altitude-gray-50 active:scale-[0.98];
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-}
-
-.btn-ghost {
-  @apply text-altitude-gray-800 px-6 py-3 rounded-lg font-medium transition-all duration-200 hover:bg-altitude-gray-100 active:scale-[0.98];
-}
-
-.card-altitude {
-  @apply bg-white rounded-xl border border-altitude-gray-400 p-6;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.08);
-}
-
-.card-altitude-hover {
-  @apply bg-white rounded-xl border border-altitude-gray-400 p-6 transition-all duration-200 hover:shadow-lg hover:border-altitude-gray-500;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.08);
-}
-
-.input-altitude {
-  @apply bg-white border border-altitude-gray-400 rounded-lg px-4 py-2.5 text-altitude-black placeholder-altitude-gray-600 transition-all duration-200;
-  @apply focus:outline-none focus:border-altitude-black focus:ring-2 focus:ring-altitude-black/10;
-}
-
-.input-altitude:disabled {
-  @apply bg-altitude-gray-100 text-altitude-gray-600 cursor-not-allowed;
-}
-
-.shadow-altitude-sm {
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-}
-
-.shadow-altitude-md {
-  box-shadow:
-    0 1px 3px 0 rgba(0, 0, 0, 0.08),
-    0 1px 2px 0 rgba(0, 0, 0, 0.04);
-}
-
-.shadow-altitude-lg {
-  box-shadow:
-    0 4px 6px -1px rgba(0, 0, 0, 0.08),
-    0 2px 4px -1px rgba(0, 0, 0, 0.04);
-}
-
-.shadow-altitude-xl {
-  box-shadow:
-    0 10px 15px -3px rgba(0, 0, 0, 0.08),
-    0 4px 6px -2px rgba(0, 0, 0, 0.04);
-}
-
-.mono-numbers {
-  @apply font-mono tabular-nums;
-}
-
-.transition-smooth {
-  @apply transition-all duration-200 ease-out;
-}
-
-.video-background {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: 0;
-}
-
-.backdrop-blur-strong {
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-}
-
-.glass-effect {
-  @apply backdrop-blur-md bg-white/10 border border-white/20;
-}
-
-.glass-effect-dark {
-  @apply backdrop-blur-md bg-gray-900/30 border border-white/10;
 }
 
 /* Anchor-nav offset so the fixed header never covers a section heading */
@@ -606,43 +355,6 @@ footer[id] {
   --reveal-delay: 400ms;
 }
 
-/* Dashboard mount entrance: a subtle one-shot fade/lift matched to the landing
-   reveal feel, but self-contained so it needs no IntersectionObserver. */
-.reveal-on-mount {
-  animation: revealOnMount 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-.reveal-on-mount[data-delay='1'] {
-  animation-delay: 70ms;
-}
-.reveal-on-mount[data-delay='2'] {
-  animation-delay: 140ms;
-}
-.reveal-on-mount[data-delay='3'] {
-  animation-delay: 210ms;
-}
-.reveal-on-mount[data-delay='4'] {
-  animation-delay: 280ms;
-}
-
-@keyframes revealOnMount {
-  from {
-    opacity: 0;
-    filter: blur(6px);
-    transform: translate3d(0, 14px, 0);
-  }
-  to {
-    opacity: 1;
-    filter: blur(0);
-    transform: translate3d(0, 0, 0);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .reveal-on-mount {
-    animation: none;
-  }
-}
-
 [data-hero-reveal] {
   --hero-reveal-x: 0px;
   --hero-reveal-y: 28px;
@@ -706,41 +418,338 @@ footer[id] {
   }
 }
 
-/* Docs/developer card mascot eyes — wander on card hover */
-.mascot-eye {
-  transform-box: fill-box;
-  transform-origin: center;
-  will-change: transform;
+.cta-early-access-arrow {
+  display: inline-block;
+  mask: url('/cta-arrow.svg') center / contain no-repeat;
+  transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
 }
-.group:hover .mascot-eye {
-  animation: mascotEyeLook 1.35s cubic-bezier(0.45, 0, 0.2, 1) infinite;
+.cta-early-access-label {
+  display: inline-block;
+  transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
 }
-.group:hover .mascot-eye-alt {
-  animation: mascotEyeLookAlt 1.35s cubic-bezier(0.45, 0, 0.2, 1) infinite;
+.cta-early-access:hover .cta-early-access-arrow,
+.cta-early-access:focus-visible .cta-early-access-arrow,
+.cta-early-access:has(:focus-visible) .cta-early-access-arrow {
+  transform: translateX(0.23em) rotate(-45deg);
+}
+.cta-early-access:hover .cta-early-access-label,
+.cta-early-access:focus-visible .cta-early-access-label,
+.cta-early-access:has(:focus-visible) .cta-early-access-label {
+  transform: translateX(0.3em) skewX(-10deg);
 }
 
-@keyframes mascotEyeLook {
-  0%,
-  100% {
-    transform: translate3d(0, 0, 0);
+.cta-see-all .cta-early-access-arrow {
+  transform: rotate(-45deg);
+}
+.cta-see-all:hover .cta-early-access-arrow,
+.cta-see-all:focus-visible .cta-early-access-arrow {
+  transform: translateX(0.3em) rotate(-45deg);
+}
+.cta-see-all:hover .cta-early-access-label,
+.cta-see-all:focus-visible .cta-early-access-label {
+  transform: skewX(-10deg);
+}
+
+.blog-prose {
+  font-size: 1.125rem;
+  line-height: 1.8;
+  color: rgb(255 255 255 / 0.8);
+}
+.blog-prose > :not(.contents),
+.blog-prose > .contents > * {
+  margin-top: 1.5em;
+}
+.blog-prose > .contents:first-child > :first-child {
+  margin-top: 0;
+}
+.blog-prose blockquote > * + * {
+  margin-top: 1em;
+}
+.blog-prose h2,
+.blog-prose h3 {
+  color: #fff;
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  margin-top: 2.25em;
+}
+.blog-prose h2 {
+  font-size: 2rem;
+}
+.blog-prose h3 {
+  font-size: 1.5rem;
+}
+.blog-prose strong {
+  color: #fff;
+  font-weight: 600;
+}
+.blog-prose a:not(.blog-tweet a) {
+  color: #fff;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+.blog-prose ul,
+.blog-prose ol {
+  padding-left: 1.5em;
+}
+.blog-prose ul {
+  list-style: disc;
+}
+.blog-prose ol {
+  list-style: decimal;
+}
+.blog-prose li + li {
+  margin-top: 0.5em;
+}
+.blog-prose blockquote {
+  border-left: 2px solid rgb(255 255 255 / 0.2);
+  padding-left: 1.25em;
+  color: rgb(255 255 255 / 0.6);
+}
+.blog-prose hr {
+  border: 0;
+  border-top: 1px solid rgb(255 255 255 / 0.3);
+  margin: 2em 0;
+}
+.blog-prose hr + * {
+  margin-top: 0;
+}
+.article-gallery img:not(a img, media-controller img, .blog-tweet img) {
+  cursor: zoom-in;
+}
+.blog-prose img:not(media-controller img, .blog-tweet img) {
+  width: 100%;
+  height: auto;
+}
+.blog-video {
+  display: block;
+  width: 100%;
+  background: var(--background);
+  --media-primary-color: #fff;
+  --media-secondary-color: transparent;
+  --media-control-background: transparent;
+  --media-control-hover-background: rgb(255 255 255 / 0.1);
+  --media-range-track-background: rgb(255 255 255 / 0.25);
+  --media-range-bar-color: #fff;
+  --media-range-thumb-background: #fff;
+  --media-font-family: inherit;
+}
+.blog-video video {
+  width: 100%;
+  height: auto;
+}
+.blog-video media-control-bar {
+  width: 100%;
+  background: linear-gradient(to top, rgb(0 0 0 / 0.7), transparent);
+}
+.blog-video-center {
+  width: 64px;
+  height: 64px;
+  padding: 16px;
+  border-radius: 9999px;
+  --media-control-background: rgb(0 0 0 / 0.55);
+  --media-control-hover-background: rgb(0 0 0 / 0.75);
+}
+.blog-video:not([mediapaused]) .blog-video-center {
+  display: none;
+}
+.blog-tweet {
+  position: relative;
+}
+.blog-tweet-link {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+.blog-prose .blog-tweet {
+  font-size: 1rem;
+  line-height: normal;
+}
+.blog-tweet:hover .react-tweet-theme {
+  background: var(--tweet-bg-color-hover);
+}
+.blog-tweet .react-tweet-theme {
+  max-width: none;
+  --tweet-color-blue-primary: #1d96ea;
+  --tweet-color-blue-secondary: #1d96ea;
+  --tweet-container-margin: 0;
+  --tweet-font-family: inherit;
+  --tweet-bg-color: var(--background);
+  --tweet-bg-color-hover: rgb(255 255 255 / 0.03);
+  --tweet-border: 1px solid rgb(255 255 255 / 0.15);
+}
+.blog-prose .blog-embed {
+  display: flex;
+  align-items: stretch;
+  border: 1px solid rgb(255 255 255 / 0.15);
+  text-decoration: none;
+  transition: border-color 200ms;
+}
+.blog-prose .blog-embed:hover {
+  border-color: rgb(255 255 255 / 0.4);
+}
+.blog-prose .blog-embed img {
+  width: 45%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  align-self: center;
+  flex-shrink: 0;
+}
+.blog-embed-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.35em;
+  padding: 0.75em 1.25em;
+  min-width: 0;
+}
+.blog-embed-title {
+  color: #fff;
+  font-weight: 600;
+  line-height: 1.25;
+}
+.blog-embed-excerpt {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: rgb(255 255 255 / 0.6);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+@media (max-width: 639px) {
+  .blog-prose .blog-embed {
+    flex-direction: column;
   }
-  35% {
-    transform: translate3d(-7px, -2px, 0);
-  }
-  70% {
-    transform: translate3d(6px, 1px, 0);
+  .blog-prose .blog-embed img {
+    width: 100%;
   }
 }
-@keyframes mascotEyeLookAlt {
-  0%,
-  100% {
-    transform: translate3d(0, 0, 0);
+.blog-prose code {
+  font-size: 0.9em;
+  background: rgb(255 255 255 / 0.08);
+  padding: 0.15em 0.35em;
+}
+.blog-prose pre {
+  overflow-x: auto;
+  background: rgb(255 255 255 / 0.05);
+  padding: 1em;
+}
+.blog-prose pre code {
+  background: none;
+  padding: 0;
+}
+
+.vaults {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  container-type: inline-size;
+}
+.vault {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 168px;
+}
+.vault-box {
+  width: 50%;
+  height: 84%;
+}
+@media (min-width: 768px) {
+  .vaults {
+    display: block;
+    aspect-ratio: 1070 / 296;
+    overflow: hidden;
   }
-  35% {
-    transform: translate3d(6px, -1px, 0);
+  .vault {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 25.5cqw;
+    height: auto;
+    transition:
+      left 250ms ease-in-out,
+      width 250ms ease-in-out;
   }
-  75% {
-    transform: translate3d(-7px, 2px, 0);
+  .vault:nth-of-type(1) {
+    left: 0;
+  }
+  .vault:nth-of-type(2) {
+    left: 37.25cqw;
+  }
+  .vault:nth-of-type(3) {
+    left: 74.5cqw;
+  }
+  .vault-box {
+    position: absolute;
+    inset: 4.5% 4.25cqw;
+    width: auto;
+    height: auto;
+  }
+}
+@media (min-width: 768px) and (hover: hover) {
+  .vault:hover {
+    width: 49cqw;
+  }
+  .vault:nth-of-type(2):hover,
+  .vaults:has(.vault:nth-of-type(3):hover) .vault:nth-of-type(2) {
+    left: 25.5cqw;
+  }
+  .vaults:has(.vault:nth-of-type(1):hover) .vault:nth-of-type(2) {
+    left: 49cqw;
+  }
+  .vault:nth-of-type(3):hover {
+    left: 51cqw;
+  }
+}
+
+.yield-sources {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow: hidden;
+}
+.yield-box {
+  display: grid;
+  grid-template-columns: repeat(var(--cols), 1fr);
+  place-items: center;
+  gap: 12px 8px;
+  padding: 12px 8px;
+}
+.yield-logo {
+  width: 100%;
+  max-width: 120px;
+  height: auto;
+}
+.yield-box:not(:first-of-type) .yield-logo {
+  width: auto;
+  height: 72px;
+}
+@media (min-width: 768px) {
+  .yield-sources {
+    display: block;
+    aspect-ratio: 1898 / 975;
+  }
+  .yield-box {
+    position: absolute;
+    top: 5.5%;
+    bottom: 5.5%;
+    left: var(--left);
+    width: var(--width);
+    display: block;
+    padding: 0;
+  }
+  .yield-box .yield-logo,
+  .yield-box:not(:first-of-type) .yield-logo {
+    position: absolute;
+    left: var(--x);
+    top: var(--y);
+    width: var(--w);
+    max-width: none;
+    height: auto;
+    translate: -50% -50%;
   }
 }
 
@@ -758,8 +767,9 @@ footer[id] {
     opacity: 1;
     transform: none;
   }
-  .group:hover .mascot-eye,
-  .group:hover .mascot-eye-alt {
-    animation: none;
+  .cta-early-access-arrow,
+  .cta-early-access-label,
+  .vault {
+    transition: none;
   }
 }
