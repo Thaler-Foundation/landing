@@ -7,9 +7,9 @@ const CELL = 2;
 const GREY = [255, 255, 255];
 
 const VAULTS = [
-  { name: 'Safe', color: [0, 255, 255] },
-  { name: 'Conservative', color: [255, 225, 0] },
-  { name: 'Balanced', color: [255, 0, 0] },
+  { name: 'Safe', color: [102, 153, 255] },
+  { name: 'Conservative', color: [102, 255, 204] },
+  { name: 'Balanced', color: [153, 255, 102] },
 ];
 
 export function VaultsStrip({ returns }: { returns: number[] }) {
@@ -56,9 +56,10 @@ export function VaultsStrip({ returns }: { returns: number[] }) {
           );
           if (t === -1 && !desktop.matches) continue;
           const color = t === -1 ? GREY : VAULTS[t].color;
-          out.data[i * 4] = q * color[0];
-          out.data[i * 4 + 1] = q * color[1];
-          out.data[i * 4 + 2] = q * color[2];
+          const level = t === -1 ? q : 0.8;
+          out.data[i * 4] = level * color[0];
+          out.data[i * 4 + 1] = level * color[1];
+          out.data[i * 4 + 2] = level * color[2];
         }
       }
       ctx.putImageData(out, 0, 0);
