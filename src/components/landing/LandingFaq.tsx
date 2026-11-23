@@ -94,9 +94,9 @@ export function LandingFaq({ items = LANDING_FAQS }: { items?: FaqItem[] }) {
                   className="flex w-full cursor-pointer gap-6 py-5 text-left transition-colors duration-200 ease-out hover:opacity-70 focus-visible:outline-none"
                 >
                   <span className="text-foreground relative mt-0.5 h-6 w-6 shrink-0">
-                    <span className="bg-current absolute left-[1.7px] top-[10.7px] h-[2.6px] w-[20.6px] rounded-full transition-transform duration-300 ease-out" />
+                    <span className="bg-current absolute left-[1.7px] top-[10.7px] h-[2.6px] w-[20.6px] rounded-full transition-transform duration-800 ease-[cubic-bezier(0.22,1,0.36,1)]" />
                     <span
-                      className={`bg-current absolute left-[10.7px] top-[1.7px] h-[20.6px] w-[2.6px] rounded-full transition duration-300 ease-out ${
+                      className={`bg-current absolute left-[10.7px] top-[1.7px] h-[20.6px] w-[2.6px] rounded-full transition duration-800 ease-[cubic-bezier(0.22,1,0.36,1)] ${
                         isOpen ? 'scale-y-0 opacity-0' : 'scale-y-100 opacity-100'
                       }`}
                     />
@@ -106,7 +106,7 @@ export function LandingFaq({ items = LANDING_FAQS }: { items?: FaqItem[] }) {
                   </span>
                 </button>
                 <div
-                  className={`grid transition-[grid-template-rows,opacity] duration-300 ease-out ${
+                  className={`grid transition-[grid-template-rows,opacity] duration-800 ease-[cubic-bezier(0.22,1,0.36,1)] ${
                     isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
                   }`}
                   id={answerId}

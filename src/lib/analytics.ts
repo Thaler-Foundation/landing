@@ -4,9 +4,11 @@ export type Mode = 'A' | 'B' | 'C' | 'D' | 'E' | 'F';
 
 export type StrategyBreakdown = {
   mode: Mode;
-  vaultCount: number;
   tvlUsd: number;
   projectedApyBps: number;
+  tvlSol?: number;
+  lifetimeYieldSol?: number;
+  lifetimeYieldUsd?: number;
 };
 
 export type AnalyticsData = {
@@ -29,4 +31,27 @@ export async function getAnalytics(): Promise<AnalyticsData | null> {
 export function getApyPct(data: AnalyticsData | null, mode: Mode) {
   const bps = data?.strategyBreakdown?.find((s) => s.mode === mode)?.projectedApyBps;
   return bps ? Math.round(bps / 100) : null;
+}
+
+const TVL_MODES: Mode[] = ['A', 'B', 'C'];
+
+function sum(
+  rows: StrategyBreakdown[],
+  key: 'tvlSol' | 'tvlUsd' | 'lifetimeYieldSol' | 'lifetimeYieldUsd'
+) {
+  const values = rows.map((s) => s[key]);
+  return values.length > 0 && values.every((v) => typeof v === 'number')
+    ? values.reduce<number>((a, v) => a + v!, 0)
+    : null;
+}
+
+export function getLiveStats(data: AnalyticsData | null) {
+  const all = data?.strategyBreakdown ?? [];
+  const tvl = all.filter((s) => TVL_MODES.includes(s.mode));
+  return {
+    tvlSol: sum(tvl, 'tvlSol'),
+    tvlUsd: sum(tvl, 'tvlUsd'),
+    yieldSol: sum(all, 'lifetimeYieldSol'),
+    yieldUsd: sum(all, 'lifetimeYieldUsd'),
+  };
 }

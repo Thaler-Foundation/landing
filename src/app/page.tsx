@@ -1,4 +1,5 @@
 import { HeroSection } from '@/components/landing/HeroSection';
+import { LiveStatsSection } from '@/components/landing/LiveStatsSection';
 import { VaultsSection } from '@/components/landing/VaultsSection';
 import { YieldSourcesSection } from '@/components/landing/YieldSourcesSection';
 import { LandingFaq } from '@/components/landing/LandingFaq';
@@ -30,6 +31,7 @@ export default function LandingPage() {
           <Header />
         </Suspense>
         <HeroSection />
+        <LiveStatsSection />
         <VaultsSection />
         <YieldSourcesSection />
         <LandingBlog />
