@@ -5,8 +5,8 @@ import { useEffect, useRef } from 'react';
 import { cellRect, sampleDither } from '@/lib/dither';
 import { cn } from '@/lib/utils/cn';
 
-const CELL = { desktop: 1, mobile: 0.5 };
-const RANGE = { desktop: [0.02, 0.6], mobile: [0.15, 0.85] };
+const CELL = { desktop: 1.5, mobile: 0.75 };
+const DOT = 150;
 const ROWS = [
   [14.75, 38.25, 61.75, 85.25],
   [26.5, 50, 73.5],
@@ -86,7 +86,6 @@ export function YieldSourcesStrip() {
     const draw = () => {
       frame = 0;
       const img = desktop.matches ? wide : narrow;
-      const [low, high] = desktop.matches ? RANGE.desktop : RANGE.mobile;
       const cell = desktop.matches ? CELL.desktop : CELL.mobile;
       if (!img.complete || !strip.clientWidth) return;
       const cols = Math.ceil(strip.clientWidth / cell);
@@ -99,16 +98,16 @@ export function YieldSourcesStrip() {
       const out = ctx.createImageData(cols, rows);
       for (const el of boxRefs.current) {
         const r = cellRect(el, origin, cellW, cellH);
-        const left = Math.max(0, Math.round(r.left));
-        const top = Math.max(0, Math.round(r.top));
-        const w = Math.min(cols, Math.round(r.right)) - left;
-        const h = Math.min(rows, Math.round(r.bottom)) - top;
+        const left = Math.max(0, Math.ceil(r.left));
+        const top = Math.max(0, Math.ceil(r.top));
+        const w = Math.min(cols, Math.floor(r.right)) - left;
+        const h = Math.min(rows, Math.floor(r.bottom)) - top;
         if (w <= 0 || h <= 0) continue;
-        const levels = sampleDither(scratch, img, w, h, low, high, 5);
+        const levels = sampleDither(scratch, img, w, h, 0.1, 0.5, 2);
         for (let y = 0; y < h; y++) {
           for (let x = 0; x < w; x++) {
             const i = (top + y) * cols + left + x;
-            const v = levels[y * w + x] * 255;
+            const v = levels[y * w + x] * DOT;
             out.data[i * 4] = v;
             out.data[i * 4 + 1] = v;
             out.data[i * 4 + 2] = v;
@@ -163,7 +162,7 @@ export function YieldSourcesStrip() {
           }}
           role="group"
           aria-label={box.name}
-          className="yield-box"
+          className="yield-box bg-black/65"
           style={
             {
               '--left': `${box.left}%`,
