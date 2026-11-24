@@ -8,5 +8,6 @@ export interface ConfigProps {
   };
   docs?: string;
   dashboard: string;
+  seekerApp?: string;
   background: string;
 }
