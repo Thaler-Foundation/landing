@@ -19,14 +19,16 @@ const footerColumns: {
     title: 'Products',
     links: [
       { href: 'https://thaler.finance', label: 'Thaler', external: true },
-      { href: 'https://dns.thaler.finance', label: 'DNS', external: true },
+      { href: '/mobile', label: 'Mobile App' },
     ],
   },
   {
     title: 'Resources',
     links: [
-      { href: '#faq', label: 'FAQ' },
       { href: '/blog', label: 'Blog' },
+      { href: '/brand', label: 'Brand' },
+      { href: '#faq', label: 'FAQs' },
+      { href: '/help', label: 'Help & Support' },
       { href: config.docs ?? '#', label: 'Docs', external: true },
     ],
   },
