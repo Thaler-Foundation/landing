@@ -7,16 +7,21 @@ import { cn } from '@/lib/utils/cn';
 
 const CELL = { desktop: 1, mobile: 0.5 };
 const RANGE = { desktop: [0.02, 0.6], mobile: [0.15, 0.85] };
-const ROW = [18.4, 50, 81.6];
+const ROWS = [
+  [14.75, 38.25, 61.75, 85.25],
+  [26.5, 50, 73.5],
+  [14.75, 38.25, 61.75, 85.25],
+];
+const SLOTS = ROWS.flatMap((xs, r) => xs.map((x) => [x, 26.5 + r * 23.5]));
 
 type Logo = { name: string; src: string; x: number; y: number; w: number; h?: number };
 
 const lst = (name: string, file: string, i: number): Logo => ({
   name,
   src: `/venues/lst/${file}.png`,
-  x: ROW[i % 3],
-  y: ROW[Math.floor(i / 3)],
-  w: 28.5,
+  x: SLOTS[i][0],
+  y: SLOTS[i][1],
+  w: 20,
 });
 
 const BOXES: { name: string; left: number; width: number; cols: number; logos: Logo[] }[] = [
@@ -35,17 +40,20 @@ const BOXES: { name: string; left: number; width: number; cols: number; logos: L
       ['blazeSOL', 'blazesol'],
       ['jupSOL', 'jupsol'],
       ['INF', 'infsol'],
+      ['rkuSOL', 'rkusol'],
+      ['strongSOL', 'strongsol'],
     ].map(([name, file], i) => lst(name, file, i)),
   },
   {
     name: 'Perpetuals',
     left: 56.8,
     width: 13.2,
-    cols: 3,
+    cols: 2,
     logos: [
-      { name: 'Pacifica', src: '/venues/perps/pacifica.png', x: 50, y: 14, w: 68 },
-      { name: 'Phoenix', src: '/venues/perps/phoenix.svg', x: 50, y: 50, w: 100 },
-      { name: 'Bulk', src: '/venues/perps/bulk.svg', x: 50, y: 86, w: 100 },
+      { name: 'Pacifica', src: '/venues/perps/pacifica.png', x: 50, y: 12, w: 60 },
+      { name: 'Phoenix', src: '/venues/perps/phoenix.svg', x: 50, y: 37.5, w: 88 },
+      { name: 'Bulk', src: '/venues/perps/bulk.svg', x: 50, y: 62.5, w: 88 },
+      { name: 'Bullet', src: '/venues/perps/bullet.png', x: 50, y: 88, w: 88 },
     ],
   },
   {
