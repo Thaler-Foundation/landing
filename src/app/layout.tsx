@@ -1,9 +1,10 @@
+import { GoogleAnalytics } from '@/components/analytics/GoogleAnalytics';
+import { Providers } from '@/components/providers';
+import config from '@/config';
+import { getSEOTags } from '@/lib/seo';
+import { cn } from '@/lib/utils/cn';
 import { Geist } from 'next/font/google';
 import Script from 'next/script';
-import config from '@/config';
-import { Providers } from '@/components/providers';
-import { cn } from '@/lib/utils/cn';
-import { getSEOTags } from '@/lib/seo';
 
 import type { Metadata } from 'next';
 
@@ -27,16 +28,6 @@ export const metadata: Metadata = {
       'Squads Smart Account',
     ],
     canonicalUrlRelative: '/',
-    openGraph: {
-      images: [
-        {
-          url: '/images/home.png',
-          width: 1200,
-          height: 630,
-          alt: 'Thaler: isolated, self-custodied yield vaults on Solana',
-        },
-      ],
-    },
   }),
   // Title template: the home keeps its full value-prop title, while every
   // sub-page (Blog, Terms, …) is branded as e.g. "Blog | Thaler".
@@ -69,6 +60,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         )}
       </head>
       <body className="min-h-screen bg-background font-sans antialiased">
+        <GoogleAnalytics />
         <Providers>{children}</Providers>
       </body>
     </html>
