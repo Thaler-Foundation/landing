@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import config from '@/config';
 
-// NEXT_PUBLIC_SITE_URL > VERCEL_PROJECT_PRODUCTION_URL > VERCEL_URL > domainName > localhost
 const getBaseURL = () => {
   if (process.env.NEXT_PUBLIC_SITE_URL) return process.env.NEXT_PUBLIC_SITE_URL;
   if (process.env.VERCEL_PROJECT_PRODUCTION_URL)
@@ -27,30 +26,32 @@ export const getSEOTags = ({
     title: title || config.appName,
     description: description || config.appDescription,
     keywords: keywords || [config.appName],
-    applicationName: config.appName,
+    applicationName: 'Thaler',
+    icons: { icon: '/favicon.ico', apple: '/apple-touch-icon.png' },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: { index: true, follow: true, 'max-image-preview': 'large', 'max-snippet': -1 },
+    },
     manifest: '/manifest.webmanifest',
     metadataBase: new URL(BASE_URL),
 
     openGraph: {
       title: openGraph?.title || title || config.appName,
       description: openGraph?.description || description || config.appDescription,
-      url: openGraph?.url || BASE_URL,
-      siteName: config.appName,
-      images: openGraph?.images ?? [
-        {
-          url: '/images/home.png',
-          width: 1200,
-          height: 630,
-        },
-      ],
+      url: openGraph?.url || canonicalUrlRelative || BASE_URL,
+      siteName: 'Thaler',
+      images: openGraph?.images ?? [{ url: '/opengraph-image', width: 1200, height: 630 }],
       locale: 'en_US',
       type: 'website' as const,
+      ...openGraph,
     },
 
     twitter: {
       title: openGraph?.title || title || config.appName,
       description: openGraph?.description || description || config.appDescription,
       card: 'summary_large_image',
+      site: '@ThalerFinance',
       creator: '@ThalerFinance',
     },
 
@@ -95,7 +96,7 @@ export const renderSchemaTags = ({
     '@type': 'SoftwareApplication',
     name,
     description,
-    image: `${BASE_URL}/images/home.png`,
+    image: `${BASE_URL}/opengraph-image`,
     url: `${BASE_URL}/`,
     author: {
       '@type': 'Organization',

@@ -715,7 +715,6 @@ footer[id] {
   display: flex;
   flex-direction: column;
   gap: 16px;
-  overflow: hidden;
 }
 .yield-box {
   display: grid;
@@ -725,23 +724,87 @@ footer[id] {
   padding: 12px 8px;
 }
 .yield-logo {
+  position: relative;
+  display: block;
   width: 100%;
   max-width: 120px;
   height: auto;
 }
+.yield-logo img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
 .yield-box:not(:first-of-type) .yield-logo {
   width: auto;
-  height: 72px;
+  height: calc(56px * var(--m, 1));
+}
+.yield-tip {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  z-index: 10;
+  width: max-content;
+  max-width: 220px;
+  padding: 10px 12px;
+  background: #0c0c0c;
+  border: 1px solid rgb(255 255 255 / 0.15);
+  font-size: 13px;
+  line-height: 1.35;
+  text-align: left;
+  white-space: normal;
+  opacity: 0;
+  pointer-events: none;
+  translate: -50% 4px;
+  transition:
+    opacity 150ms,
+    translate 150ms;
+}
+.yield-logo[data-active] .yield-tip,
+.yield-logo:focus-visible .yield-tip {
+  opacity: 1;
+  translate: -50% 0;
+}
+@media (hover: hover) {
+  .yield-logo:hover .yield-tip {
+    opacity: 1;
+    translate: -50% 0;
+  }
+}
+@media (max-width: 767px) {
+  .yield-box:first-of-type {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .yield-box:first-of-type .yield-logo {
+    width: calc((100% - 24px) / 4);
+  }
+  .yield-box:not(:first-of-type) .yield-logo img {
+    width: auto;
+    height: 100%;
+  }
+  .yield-tip[data-align='start'],
+  .yield-logo[data-active] .yield-tip[data-align='start'] {
+    left: 0;
+    translate: 0 0;
+  }
+  .yield-tip[data-align='end'],
+  .yield-logo[data-active] .yield-tip[data-align='end'] {
+    left: auto;
+    right: 0;
+    translate: 0 0;
+  }
 }
 @media (min-width: 768px) {
   .yield-sources {
     display: block;
-    aspect-ratio: 1898 / 975;
+    aspect-ratio: 1.6;
   }
   .yield-box {
     position: absolute;
-    top: 5.5%;
-    bottom: 5.5%;
+    top: 0;
+    bottom: 0;
     left: var(--left);
     width: var(--width);
     display: block;

@@ -9,7 +9,7 @@ export function LandingBlog() {
   if (posts.length === 0) return null;
 
   return (
-    <section className={cn(poppins.className, 'py-28 text-white')} id="blog">
+    <section className={cn(poppins.className, 'py-12 text-white md:py-28')} id="blog">
       <div className="mx-auto max-w-7xl px-6 sm:px-8">
         <div className="flex items-center justify-between gap-6 pb-10 lg:pb-12" data-reveal="left">
           <h2 className="text-4xl font-semibold leading-none tracking-[-0.03em] sm:text-[48px]">

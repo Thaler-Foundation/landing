@@ -77,7 +77,15 @@ export const Header = () => {
         >
           Docs
         </a>
-        <EarlyAccessCta className="col-start-3 justify-self-end" />
+        <div className="col-start-3 flex items-center gap-5 justify-self-end md:gap-8">
+          <a
+            href={config.dashboard}
+            className="text-[18px] text-white/60 transition-colors hover:text-white"
+          >
+            Login
+          </a>
+          <EarlyAccessCta />
+        </div>
       </nav>
     </header>
   );

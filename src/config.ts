@@ -9,7 +9,7 @@ const config = {
     xTwitter: 'https://x.com/ThalerFinance',
   },
   docs: 'https://docs.thaler.finance/',
-  dashboard: 'https://thaler.finance/dashboard',
+  dashboard: 'https://app.thaler.finance',
   background: '#0c0c0c',
 } as ConfigProps;
 

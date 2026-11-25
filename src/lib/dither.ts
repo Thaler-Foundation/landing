@@ -2,7 +2,7 @@ const BAYER = [0, 8, 2, 10, 12, 4, 14, 6, 3, 11, 1, 9, 15, 7, 13, 5];
 
 export function sampleDither(
   ctx: CanvasRenderingContext2D,
-  img: HTMLImageElement,
+  img: HTMLImageElement | HTMLCanvasElement,
   cols: number,
   rows: number,
   low = 0.42,
@@ -11,9 +11,11 @@ export function sampleDither(
 ) {
   ctx.canvas.width = cols;
   ctx.canvas.height = rows;
-  const s = Math.max(cols / img.naturalWidth, rows / img.naturalHeight);
-  const w = img.naturalWidth * s;
-  const h = img.naturalHeight * s;
+  const iw = img instanceof HTMLImageElement ? img.naturalWidth : img.width;
+  const ih = img instanceof HTMLImageElement ? img.naturalHeight : img.height;
+  const s = Math.max(cols / iw, rows / ih);
+  const w = iw * s;
+  const h = ih * s;
   ctx.drawImage(img, (cols - w) / 2, (rows - h) / 2, w, h);
   const pixels = ctx.getImageData(0, 0, cols, rows).data;
   const levels = new Float32Array(cols * rows);

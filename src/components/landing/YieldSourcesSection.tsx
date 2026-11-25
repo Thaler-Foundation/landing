@@ -6,7 +6,7 @@ export function YieldSourcesSection() {
   return (
     <section
       id="strategy"
-      className={cn(poppins.className, 'flex justify-center py-28 text-white')}
+      className={cn(poppins.className, 'flex justify-center py-12 text-white md:py-28')}
     >
       <div className="w-full max-w-7xl px-6 sm:px-8" data-reveal="scale">
         <h2 className="text-4xl font-medium leading-[1.07] tracking-[-0.05em] lg:text-[48px]">

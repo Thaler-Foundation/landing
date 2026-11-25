@@ -110,7 +110,7 @@ export function VaultsStrip({ returns }: { returns: number[] }) {
               Vault
             </p>
             <p className="mt-[0.2em] text-5xl font-semibold leading-none tracking-[-0.06em] md:text-[clamp(40px,6.6cqw,80px)]">
-              {returns[i]}%
+              {returns[i]}%<sup className="top-[0.65em] align-top text-[0.4em] font-medium">*</sup>
             </p>
             <p className="mt-[0.6em] text-lg font-medium leading-none tracking-[-0.03em] md:text-[clamp(18px,2.3cqw,28px)]">
               Returns

@@ -8,7 +8,7 @@ export function FinalCTA() {
     <section
       className={cn(
         poppins.className,
-        'mx-auto w-full max-w-7xl px-6 pt-16 pb-28 sm:px-8 lg:pt-24 lg:pb-36'
+        'mx-auto w-full max-w-7xl px-6 pt-12 pb-16 sm:px-8 md:pt-16 md:pb-28 lg:pt-24 lg:pb-36'
       )}
     >
       <div
@@ -26,7 +26,7 @@ export function FinalCTA() {
           />
         </div>
 
-        <h2 className="text-[40px] leading-[0.8] font-medium tracking-[-0.05em] text-white sm:text-[52px] md:text-[44px] lg:text-[64px]">
+        <h2 className="text-[40px] leading-[0.9] font-medium md:leading-[0.8] tracking-[-0.05em] text-white sm:text-[52px] md:text-[44px] lg:text-[64px]">
           The verified
           <br />
           infrastructure

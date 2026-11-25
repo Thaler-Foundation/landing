@@ -31,7 +31,12 @@ export async function generateMetadata(props: PageProps<'/blog/[slug]'>): Promis
     title: post.title,
     description: post.excerpt,
     canonicalUrlRelative: `/blog/${post.slug}`,
-    openGraph: { url: `/blog/${post.slug}`, images: [{ url: post.image }] },
+    openGraph: {
+      type: 'article',
+      publishedTime: post.date,
+      url: `/blog/${post.slug}`,
+      images: [{ url: post.image }],
+    },
   });
 }
 
