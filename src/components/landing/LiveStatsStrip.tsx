@@ -50,7 +50,7 @@ export function LiveStatsStrip({ stats }: { stats: Stat[] }) {
     <div
       ref={stripRef}
       onPointerLeave={(e) => e.pointerType === 'mouse' && setActive(null)}
-      className="@container relative isolate aspect-square bg-background md:aspect-[1070/368]"
+      className="@container relative isolate aspect-[4/3] bg-background md:aspect-[1070/368]"
     >
       <canvas
         ref={canvasRef}

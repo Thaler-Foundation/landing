@@ -1,4 +1,5 @@
 import { VaultsStrip } from '@/components/landing/VaultsStrip';
+import config from '@/config';
 import { getAnalytics, getApyPct } from '@/lib/analytics';
 import { poppins } from '@/lib/fonts';
 import { cn } from '@/lib/utils/cn';
@@ -10,7 +11,7 @@ export async function VaultsSection() {
   const returns = (['A', 'B', 'C'] as const).map((mode) => getApyPct(data, mode) ?? FALLBACK[mode]);
 
   return (
-    <section className={cn(poppins.className, 'flex justify-center py-28 text-white')}>
+    <section className={cn(poppins.className, 'flex justify-center py-12 text-white md:py-28')}>
       <div className="w-full max-w-7xl px-6 sm:px-8" data-reveal="scale">
         <h2 className="text-4xl font-medium leading-none tracking-[-0.03em] sm:text-[48px]">
           Multiple vaults,
@@ -23,6 +24,17 @@ export async function VaultsSection() {
         <div className="mt-10">
           <VaultsStrip returns={returns} />
         </div>
+        <p className="mt-4 text-sm text-white/60">
+          *Terms and conditions apply.{' '}
+          <a
+            href={config.docs}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline underline-offset-2 hover:text-white"
+          >
+            Read the docs
+          </a>
+        </p>
       </div>
     </section>
   );

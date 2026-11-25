@@ -10,6 +10,7 @@ import {
   DrawerTitle,
 } from '@/components/ui/drawer';
 import { InviteInput } from '@/components/access/InviteInput';
+import { InviteDither } from '@/components/access/InviteDither';
 import { poppins } from '@/lib/fonts';
 import { cn } from '@/lib/utils/cn';
 
@@ -89,14 +90,7 @@ export function AccessDrawerProvider({ children }: { children: React.ReactNode }
                 data-keep-open
                 className="relative aspect-[635/490] w-full shrink-0 overflow-hidden md:w-[53%]"
               >
-                <Image
-                  src="/cta-bg.webp"
-                  alt=""
-                  fill
-                  unoptimized
-                  sizes="(min-width: 768px) 32vw, 100vw"
-                  className="object-cover"
-                />
+                <InviteDither />
                 <Image
                   src="/logo.svg"
                   alt="thaler"
