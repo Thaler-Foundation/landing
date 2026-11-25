@@ -137,7 +137,7 @@ export function InviteInput({ onSuccess }: { onSuccess: (email: string) => void 
       <p className={cn('mt-2 text-base', message ? 'text-[#E5483B]' : 'text-white/60')}>
         Already approved?{' '}
         <a href={config.dashboard} className="underline underline-offset-4 hover:text-white">
-          Sign in
+          Login
         </a>
       </p>
     </form>

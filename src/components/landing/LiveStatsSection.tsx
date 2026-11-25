@@ -3,13 +3,10 @@ import { getAnalytics, getLiveStats } from '@/lib/analytics';
 import { poppins } from '@/lib/fonts';
 import { cn } from '@/lib/utils/cn';
 
-const FALLBACK = { tvlSol: 1000, tvlUsd: 200000, yieldSol: 50, yieldUsd: 10000 };
-
 export async function LiveStatsSection() {
-  const live = getLiveStats(await getAnalytics());
-  const { tvlSol, tvlUsd, yieldSol, yieldUsd } = Object.values(live).every((v) => v !== null)
-    ? (live as typeof FALLBACK)
-    : FALLBACK;
+  const { tvlSol, tvlUsd, yieldSol, yieldUsd } = getLiveStats(await getAnalytics());
+  if (tvlSol === null || tvlUsd === null || yieldSol === null || yieldUsd === null) return null;
+
   const stats = [
     { label: 'TVL', sol: tvlSol, usd: tvlUsd },
     { label: 'Yield', sol: yieldSol, usd: yieldUsd },
