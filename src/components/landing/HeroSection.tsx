@@ -17,8 +17,8 @@ export function HeroSection() {
             Market
             <br className="sm:hidden" /> Movement
           </h1>
-          <p className="mt-10 text-lg font-medium leading-none tracking-[-0.03em] sm:text-2xl">
-            Earn consistent yield, regardless of market direction
+          <p className="mt-10 text-lg font-medium leading-tight tracking-[-0.03em] sm:text-2xl">
+            Neutral Financial Layer for DeFi
           </p>
         </div>
 

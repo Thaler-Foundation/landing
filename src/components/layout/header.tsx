@@ -2,16 +2,15 @@
 
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
 import config from '@/config';
 import { cn } from '@/lib/utils/cn';
 import { poppins } from '@/lib/fonts';
 import { AccessDrawerTrigger } from '@/components/access/AccessDrawer';
+import { HomeLink } from '@/components/layout/HomeLink';
 
 function Logo() {
   return (
-    <Link
-      href="/"
+    <HomeLink
       title={`${config.appName} homepage`}
       className="shrink-0 justify-self-start transition-opacity hover:opacity-70"
     >
@@ -23,7 +22,7 @@ function Logo() {
         priority
         className="h-7 w-auto"
       />
-    </Link>
+    </HomeLink>
   );
 }
 

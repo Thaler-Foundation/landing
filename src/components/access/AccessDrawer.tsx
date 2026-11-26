@@ -2,6 +2,7 @@
 
 import { createContext, useContext, useEffect, useState } from 'react';
 import Image from 'next/image';
+import { InviteDither } from '@/components/access/InviteDither';
 import {
   Drawer,
   DrawerClose,
@@ -10,7 +11,6 @@ import {
   DrawerTitle,
 } from '@/components/ui/drawer';
 import { InviteInput } from '@/components/access/InviteInput';
-import { InviteDither } from '@/components/access/InviteDither';
 import { poppins } from '@/lib/fonts';
 import { cn } from '@/lib/utils/cn';
 

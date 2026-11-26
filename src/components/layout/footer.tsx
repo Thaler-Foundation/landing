@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { XTwitterIcon } from '@/components/icons/XTwitterIcon';
 import { DiscordIcon } from '@/components/icons/DiscordIcon';
 import { FooterWordmark } from '@/components/layout/FooterWordmark';
+import { HomeLink } from '@/components/layout/HomeLink';
 import config from '@/config';
 import { poppins } from '@/lib/fonts';
 import { cn } from '@/lib/utils/cn';
@@ -18,7 +19,7 @@ const footerColumns: {
   {
     title: 'Products',
     links: [
-      { href: 'https://thaler.finance', label: 'Thaler', external: true },
+      { href: '/', label: 'Thaler' },
       { href: '/mobile', label: 'Mobile App' },
     ],
   },
@@ -71,6 +72,9 @@ function FooterLink({
       </a>
     );
   }
+  if (href === '/') {
+    return <HomeLink className={className}>{label}</HomeLink>;
+  }
   // Section anchors: home-relative so they work from any page; native CSS
   // smooth-scroll + scroll-margin-top handles the rest (no JS).
   if (href.startsWith('#')) {
@@ -100,8 +104,7 @@ export const Footer: FC = () => {
         {/* Columns */}
         <div className="grid grid-cols-1 gap-10 pb-6 lg:grid-cols-12 lg:gap-6 lg:pb-6">
           <div className="lg:col-span-3" data-reveal="scale">
-            <Link
-              href="/"
+            <HomeLink
               aria-label={`${config.appName} home`}
               className="group inline-flex items-center transition-opacity"
             >
@@ -112,9 +115,11 @@ export const Footer: FC = () => {
                 height={24}
                 className="h-7 w-auto group-hover:opacity-70"
               />
-            </Link>
-            <p className="text-foreground/45 mt-5 max-w-[220px] text-base leading-relaxed font-medium tracking-[-0.03em]">
-              Earn consistent yield, regardless of market direction
+            </HomeLink>
+            <p className="text-foreground/45 mt-5 text-base leading-relaxed font-medium tracking-[-0.03em]">
+              Earn consistent yield,
+              <br />
+              regardless of market direction
             </p>
           </div>
 

@@ -22,7 +22,6 @@ export function VaultsStrip({ returns }: { returns: number[] }) {
     const ctx = canvas.getContext('2d')!;
     const desktop = matchMedia('(min-width: 768px)');
     const img = new Image();
-    img.src = '/vaults-dither.png';
     let levels = new Uint8ClampedArray(0);
     let frame = 0;
 
@@ -67,6 +66,9 @@ export function VaultsStrip({ returns }: { returns: number[] }) {
     const observer = new ResizeObserver(schedule);
     observer.observe(strip);
     vaultRefs.current.forEach((el) => observer.observe(el));
+    const load = () => {
+      img.src = desktop.matches ? '/vaults-dither.png' : '/vaults-dither-mobile.png';
+    };
     img.onload = () => {
       canvas.width = img.naturalWidth;
       canvas.height = img.naturalHeight;
@@ -74,9 +76,12 @@ export function VaultsStrip({ returns }: { returns: number[] }) {
       levels = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
       schedule();
     };
+    desktop.addEventListener('change', load);
+    load();
 
     return () => {
       observer.disconnect();
+      desktop.removeEventListener('change', load);
       cancelAnimationFrame(frame);
     };
   }, []);
