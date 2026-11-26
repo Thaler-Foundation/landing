@@ -1,9 +1,8 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import { cellRect, sampleDither } from '@/lib/dither';
+import { cellRect } from '@/lib/dither';
 
-const CELL = 2;
 const GREY = [255, 255, 255];
 
 const VAULTS = [
@@ -23,33 +22,29 @@ export function VaultsStrip({ returns }: { returns: number[] }) {
     const ctx = canvas.getContext('2d')!;
     const desktop = matchMedia('(min-width: 768px)');
     const img = new Image();
-    img.src = '/vaults-bg.webp';
-    let levels = new Float32Array(0);
+    img.src = '/vaults-dither.png';
+    let levels = new Uint8ClampedArray(0);
     let frame = 0;
-
-    const sample = () => {
-      if (!img.complete || !strip.clientWidth) return;
-      const cols = Math.ceil(strip.clientWidth / CELL);
-      const rows = Math.ceil(strip.clientHeight / CELL);
-      levels = sampleDither(ctx, img, cols, rows);
-    };
 
     const draw = () => {
       frame = 0;
       const cols = canvas.width;
       const rows = canvas.height;
-      if (levels.length !== cols * rows || !cols) return;
+      if (!levels.length) return;
       const origin = strip.getBoundingClientRect();
-      const cellW = origin.width / cols;
-      const cellH = origin.height / rows;
-      const tints = vaultRefs.current.map((el) => cellRect(el, origin, cellW, cellH));
+      const scale = Math.max(origin.width / cols, origin.height / rows);
+      const cover = {
+        left: origin.left + (origin.width - cols * scale) / 2,
+        top: origin.top + (origin.height - rows * scale) / 2,
+      } as DOMRect;
+      const tints = vaultRefs.current.map((el) => cellRect(el, cover, scale, scale));
 
       const out = ctx.createImageData(cols, rows);
       for (let y = 0; y < rows; y++) {
         for (let x = 0; x < cols; x++) {
           const i = y * cols + x;
           out.data[i * 4 + 3] = 255;
-          const q = levels[i];
+          const q = levels[i * 4] / 255;
           if (!q) continue;
           const t = tints.findIndex(
             (r) => x + 0.5 >= r.left && x + 0.5 < r.right && y + 0.5 >= r.top && y + 0.5 < r.bottom
@@ -69,21 +64,19 @@ export function VaultsStrip({ returns }: { returns: number[] }) {
       if (!frame) frame = requestAnimationFrame(draw);
     };
 
-    const stripObserver = new ResizeObserver(() => {
-      sample();
-      schedule();
-    });
-    const vaultObserver = new ResizeObserver(schedule);
-    stripObserver.observe(strip);
-    vaultRefs.current.forEach((el) => vaultObserver.observe(el));
+    const observer = new ResizeObserver(schedule);
+    observer.observe(strip);
+    vaultRefs.current.forEach((el) => observer.observe(el));
     img.onload = () => {
-      sample();
+      canvas.width = img.naturalWidth;
+      canvas.height = img.naturalHeight;
+      ctx.drawImage(img, 0, 0);
+      levels = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
       schedule();
     };
 
     return () => {
-      stripObserver.disconnect();
-      vaultObserver.disconnect();
+      observer.disconnect();
       cancelAnimationFrame(frame);
     };
   }, []);
@@ -93,7 +86,7 @@ export function VaultsStrip({ returns }: { returns: number[] }) {
       <canvas
         ref={canvasRef}
         aria-hidden
-        className="absolute inset-0 -z-10 h-full w-full mix-blend-lighten [image-rendering:pixelated]"
+        className="absolute inset-0 -z-10 h-full w-full object-cover mix-blend-lighten"
       />
       {VAULTS.map((vault, i) => (
         <div
