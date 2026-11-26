@@ -13,16 +13,16 @@ export function FinalCTA() {
     >
       <div
         data-reveal="lift"
-        className="cta-early-access relative isolate flex aspect-[4/5] flex-col justify-between overflow-hidden bg-background p-6 md:aspect-auto md:flex-row md:items-center md:p-[3%]"
+        className="cta-early-access relative isolate flex aspect-[3/4] flex-col justify-start gap-8 overflow-hidden bg-background p-8 md:aspect-auto md:flex-row md:items-center md:justify-between md:gap-0 md:p-[3%]"
       >
-        <div className="absolute inset-x-0 bottom-0 -z-10 aspect-[8/5] overflow-hidden mix-blend-lighten md:top-0 md:left-[26.5%] md:aspect-auto">
+        <div className="absolute inset-0 -z-10 overflow-hidden mix-blend-lighten md:left-[26.5%]">
           <Image
             src="/final-cta-bg.webp"
             alt=""
             width={1760}
             height={1760}
-            sizes="(min-width: 768px) 175vw, 295vw"
-            className="absolute top-0 left-0 h-auto w-[293.3%] max-w-none -translate-x-[25%] -translate-y-[23.86%] md:w-[234%] md:-translate-x-[19.43%] md:-translate-y-[27.27%]"
+            sizes="(min-width: 768px) 175vw, 160vw"
+            className="absolute top-0 left-0 h-auto w-[160%] max-w-none -translate-x-[12.5%] translate-y-[20%] md:w-[234%] md:-translate-x-[19.43%] md:-translate-y-[27.27%]"
           />
         </div>
 

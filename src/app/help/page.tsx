@@ -16,7 +16,7 @@ const docs = (slug: string) => `${config.docs}${slug}`;
 const topics = [
   {
     title: 'Getting started',
-    text: 'Meet Thaler, connect your wallet, and make your first vault.',
+    text: 'Meet Thaler, sign in with a social account, and make your first vault.',
     href: docs(''),
   },
   {
@@ -46,7 +46,7 @@ export default function HelpPage() {
     <SubPage>
       <section data-reveal="left">
         <h1 className="text-[52px] font-medium leading-[0.85] tracking-[-0.06em] sm:text-[clamp(52px,10.5vw,128px)]">
-          Help
+          <span className="tracking-[-0.0477em]">Help</span>
           <br />& Support
         </h1>
       </section>

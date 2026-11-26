@@ -20,20 +20,21 @@ export function SeedVaultBanner() {
         unoptimized
         className="-z-10 object-cover"
       />
-      <span className="flex items-center gap-[0.4em] text-xl font-semibold leading-none tracking-[-0.05em] sm:text-[40px]">
-        <span aria-hidden className="cta-early-access-arrow h-[1.1em] w-[1.1em] bg-current" />
+      <span className="flex w-full items-center justify-center gap-[0.4em] bg-black/60 py-[0.6em] text-xl font-semibold leading-none tracking-[-0.05em] sm:text-[40px]">
+        <span aria-hidden className="cta-early-access-arrow h-[0.75em] w-[0.75em] bg-current" />
         <span className="cta-early-access-label">Download Now</span>
-        <img src="/mobile/seeker-s.svg" alt="Seeker" className="ml-[0.2em] h-[0.8em] w-auto" />
+        <img src="/mobile/seeker.svg" alt="Seeker" className="ml-[0.2em] h-[0.8em] w-auto" />
         <AndroidIcon />
       </span>
     </>
   );
-  const className =
-    'cta-early-access relative isolate flex h-60 items-center justify-center overflow-hidden sm:h-auto sm:aspect-[1070/250]';
-
-  if (!config.seekerApp) return <div className={className}>{content}</div>;
   return (
-    <a href={config.seekerApp} target="_blank" rel="noopener noreferrer" className={className}>
+    <a
+      href={config.seekerApp ?? 'https://solanamobile.com/'}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="cta-early-access relative isolate flex h-60 cursor-pointer items-center justify-center overflow-hidden sm:h-auto sm:aspect-[1070/250]"
+    >
       {content}
     </a>
   );
