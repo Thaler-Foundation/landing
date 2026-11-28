@@ -27,7 +27,6 @@ export const getSEOTags = ({
     description: description || config.appDescription,
     keywords: keywords || [config.appName],
     applicationName: 'Thaler',
-    icons: { icon: '/favicon.ico', apple: '/apple-touch-icon.png' },
     robots: {
       index: true,
       follow: true,

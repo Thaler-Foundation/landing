@@ -798,8 +798,11 @@ footer[id] {
     width: 75%;
     margin-inline: auto;
   }
+  .yield-box:nth-of-type(2) {
+    padding-block: 2px;
+  }
   .yield-box:nth-of-type(2) .yield-logo {
-    height: calc(44px * var(--m, 1));
+    height: calc(60px * var(--m, 1));
   }
   .yield-box:not(:first-of-type) .yield-logo img {
     width: auto;

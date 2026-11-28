@@ -141,7 +141,7 @@ const BOXES: {
         src: '/venues/perps/pacifica.png',
         x: 50,
         y: 12,
-        w: 41,
+        w: 49,
         m: 0.65,
       },
       {
@@ -152,7 +152,7 @@ const BOXES: {
         src: '/venues/perps/phoenix.svg',
         x: 50,
         y: 37.5,
-        w: 60,
+        w: 72,
         m: 1.08,
       },
       {
@@ -163,7 +163,7 @@ const BOXES: {
         src: '/venues/perps/bulk.svg',
         x: 50,
         y: 62.5,
-        w: 60,
+        w: 72,
         m: 1.3,
       },
       {
@@ -174,7 +174,7 @@ const BOXES: {
         src: '/venues/perps/bullet.png',
         x: 50,
         y: 88,
-        w: 60,
+        w: 72,
       },
     ],
   },
@@ -193,7 +193,7 @@ const BOXES: {
         src: '/venues/lending/kamino.png',
         x: 50,
         y: 28,
-        w: 57,
+        w: 46,
         h: 164 / 115,
       },
       {
@@ -204,7 +204,7 @@ const BOXES: {
         src: '/venues/lending/juplend.png',
         x: 50,
         y: 72,
-        w: 80,
+        w: 64,
       },
     ],
   },
