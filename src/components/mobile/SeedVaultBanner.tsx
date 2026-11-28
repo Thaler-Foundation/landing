@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import config from '@/config';
 
 function AndroidIcon() {
   return (
@@ -10,8 +9,8 @@ function AndroidIcon() {
 }
 
 export function SeedVaultBanner() {
-  const content = (
-    <>
+  return (
+    <div className="relative isolate flex h-60 items-center justify-center overflow-hidden sm:h-auto sm:aspect-[1070/250]">
       <Image
         src="/mobile/seed-vault.webp"
         alt=""
@@ -21,21 +20,10 @@ export function SeedVaultBanner() {
         className="-z-10 object-cover"
       />
       <span className="flex w-full items-center justify-center gap-[0.4em] bg-black/60 py-[0.6em] text-xl font-semibold leading-none tracking-[-0.05em] sm:text-[40px]">
-        <span aria-hidden className="cta-early-access-arrow h-[0.75em] w-[0.75em] bg-current" />
-        <span className="cta-early-access-label">Download Now</span>
+        Coming Soon
         <img src="/mobile/seeker.svg" alt="Seeker" className="ml-[0.2em] h-[0.8em] w-auto" />
         <AndroidIcon />
       </span>
-    </>
-  );
-  return (
-    <a
-      href={config.seekerApp ?? 'https://solanamobile.com/'}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="cta-early-access relative isolate flex h-60 cursor-pointer items-center justify-center overflow-hidden sm:h-auto sm:aspect-[1070/250]"
-    >
-      {content}
-    </a>
+    </div>
   );
 }

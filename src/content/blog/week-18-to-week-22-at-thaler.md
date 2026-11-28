@@ -19,7 +19,7 @@ All of it came from vaults working in the background and generating activity for
 
 It's an important milestone for Thaler and a good indication of the activity happening across our vault strategies.
 
-https://x.com/ThalerFinance/status/2120881880392479102
+<video src="/blog/blog-13/video1.mp4" controls playsinline preload="metadata"></video>
 
 ---
 
@@ -46,7 +46,7 @@ The process is straightforward:
 
 Users can claim up to 6 months of expected net yield, providing liquidity today while their deposits continue working.
 
-https://x.com/ThalerFinance/status/2119802318527123645
+<video src="/blog/blog-13/video2.mp4" controls playsinline preload="metadata"></video>
 
 ---
 
@@ -83,11 +83,11 @@ When the Railway security incident came to light, we proactively placed Thaler u
 
 We rotated all keys across Vercel, Privy and Neon, while ensuring that all existing positions remained in place throughout the process.
 
-https://x.com/ThalerFinance/status/2113227407759139264
+![](/blog/blog-13/image4.png)
 
 Once the necessary security measures were completed, we brought Thaler back online and restored vault actions.
 
-https://x.com/ThalerFinance/status/2113553971873009767
+![](/blog/blog-13/image5.png)
 
 Security comes before availability. We'd rather temporarily pause operations and verify our infrastructure than compromise the safety of user positions.
 
